@@ -1,5 +1,7 @@
 #### THREDDS Crawler for R using xml2 package
 
+[THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html)
+
 Replaces [threddscrawler](https://github.com/BigelowLab/threddscrawler) which is
 based upon the [XML](https://CRAN.R-project.org/package=XML).  Instead this package
 is based upon [xml2](https://CRAN.R-project.org/package=xml2)

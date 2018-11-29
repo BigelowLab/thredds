@@ -1,6 +1,5 @@
 Package: threddscrawler
-Title: A limited [THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html)
-crawler for programmatically navigating THREDDS catalogs
+Title: A limited THREDDS crawler for programmatically navigating THREDDS catalogs
 Version: 0.1
 Depends:
     R (>= 3.0)
