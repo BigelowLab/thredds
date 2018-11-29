@@ -1,5 +1,6 @@
-Package: threddscrawler
-Title: A limited THREDDS crawler for programmatically navigating THREDDS catalogs
+Package: thredds2
+Title: threddscrawler for navigating THREDDS catalogs
+Description: A limited THREDDS crawler for programmatically navigating THREDDS catalogs.
 Version: 0.1
 Depends:
     R (>= 3.0)
@@ -10,8 +11,8 @@ Imports:
     xml2
 Maintainer: Ben Tupper <btupper@bigelow.org>
 Author: Ben Tupper <btupper@bigelow.org>
-URL: https://github.com/btupper/threddscrawler2
-License: GPL (>= 2)
+URL: https://github.com/BigelowLab/threddscrawler2
+License: MIT + file LICENSE
 Collate:
     'Thredds.R'
     'Catalog.R'
@@ -20,4 +21,5 @@ Collate:
     'Service.R'
     'TopCatalog.R'
     'misc.R'
-RoxygenNote: 5.0.1
+    'thredds2-package.R'
+RoxygenNote: 6.1.1

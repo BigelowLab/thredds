@@ -1,4 +1,4 @@
-#' Determine if a vector of names match the greplargs 
+#' Determine if a vector of names match the greplargs
 #'
 #' @export
 #' @param x a vector of names
@@ -8,30 +8,48 @@ grepl_it <- function(x, greplargs = NULL){
    ix <- rep(FALSE, length(x))
    if (is.null(greplargs)) return(!ix)
    if (!is.list(greplargs[[1]])) greplargs <- list(greplargs)
-   
+
    for (g in greplargs){
          ix <- ix | grepl(g[['pattern']], x, fixed = g[['fixed']])
    }
    ix
 }
-   
-#' Test if an object inherits from XML::XMLAbstractNode
+
+#' Test if an object inherits from xml2::xml_node
 #'
 #' @export
 #' @param x object to test
-#' @param classname character, the class name to test against, by default 'XMLAbstractNode'
+#' @param classname character, the class name to test against, by default 'xml_node'
 #' @return logical
-is_xmlNode <- function(x, classname = 'XMLAbstractNode'){
+is_xmlNode <- function(x, classname = 'xml_node'){
    inherits(x, classname)
 }
 
-#' Convert XML::xmlNode to character
-#' 
+#' Convert xm2::xml_node to character
+#'
 #' @export
 #' @param x xmlNode
 #' @return character
 xmlString <- function(x){
-   gsub("\n","", XML::toString.XMLNode(x))
+   gsub("\n","", as.character(x))
+}
+
+
+#' Get the names of children
+#' @export
+#' @param x xmls::xml_node
+#' @param unique_only logical if TRUE remove duplicates
+#' @return zero or more child names.  If none an empty character string is returned
+xml_children_names <- function(x, unique_only = TRUE){
+    nm <- if (is_xmlNode(x)) {
+        x %>%
+            xml2::xml_children() %>%
+            sapply(xml2::xml_name)
+    } else {
+        ""
+    }
+    if (unique_only) nm <- unique(nm)
+    return(nm)
 }
 
 
@@ -42,7 +60,7 @@ xmlString <- function(x){
 #' @param ... further arguments for parse_node
 #' @return ThreddsNodeRefClass or subclass or NULL
 get_catalog <- function(uri, ...){
-   
+
    x <- httr::GET(uri)
    if (httr::status_code(x) == 200){
       node <- parse_node(x, ...)
@@ -52,32 +70,31 @@ get_catalog <- function(uri, ...){
    return(node)
 }
 
-#' Convert a node to an object inheriting from ThreddsNodeRefClass 
+#' Convert a node to an object inheriting from ThreddsNodeRefClass
 #'
 #' @export
-#' @param node XML::xmlNode or an httr::response object
+#' @param node xml2::xml_node or an httr::response object
 #' @param url character, optional url if a catalog or direct dataset
 #' @param verbose logical, by default FALSE
 #' @param encoding character, by default UTF-8
 #' @return ThreddsNodeRefClass object or subclass
 parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8'){
 
-   # given an 'dataset' XML::xmlNode determine if the node is a collection or
+   # given an 'dataset' xml2::xml_node determine if the node is a collection or
    # direct (to data) and return the appropriate data type
    parse_dataset <- function(x, verbose = FALSE){
-      if ('dataset' %in% names(XML::xmlChildren(x))){ # was 'access'
+      if ('dataset' %in% xml_children_names(x)){
          r <- DatasetRefClass$new(x, verbose = verbose)
       } else {
          r <- DatasetsRefClass$new(x, verbose = verbose)
       }
       return(r)
    }
-   
+
    if (inherits(node, 'response')){
       if (httr::status_code(node) == 200){
          if (is.null(url)) url <- node$url
-         cnt <- httr::content(node, type = 'text/xml', encoding = 'UTF-8')
-         node <- XML::xmlRoot(XML::xmlTreeParse(cnt))
+         node <- httr::content(node, type = 'text/xml', encoding = 'UTF-8')
       } else {
          cat("response status ==",httr::status_code(node), "\n")
          cat("response url = ", node$url, "\n")
@@ -86,13 +103,13 @@ parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8'){
       }
    }
 
-   if (!is_xmlNode(node)) stop("assign_node: node must be XML::xmlNode")
-   
-   nm <- XML::xmlName(node)[1]
+   if (!is_xmlNode(node)) stop("assign_node: node must be xml2::xml_node")
+
+   nm <- xml2::xml_name(node)[1]
    n <- switch(nm,
        'catalog' = TopCatalogRefClass$new(node, verbose = verbose),
        'catalogRef' = CatalogRefClass$new(node, verbose = verbose),
-       'service' = ServiceRefClassr$new(node, verbose = verbose),
+       'service' = ServiceRefClass$new(node, verbose = verbose),
        'dataset' = parse_dataset(node, verbose = verbose),
        ThreddsNodeRefClass$new(node, verbose = verbose))
 

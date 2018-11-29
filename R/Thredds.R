@@ -1,10 +1,11 @@
-# thredds
-
-#' An base representation that  other nodes subclass from
-#' 
-#' @family Thredds
+#' An base representation that other nodes subclass from
+#'
+#' @family Thredds2
 #' @field url character - possibly wrong but usually right!
-#' @field node XML::xmlNode
+#' @field node xml2::xml_node
+#' @field handle httr::handle object
+#' @field verbose_mode logical
+#' @field tries numeric
 #' @export
 ThreddsNodeRefClass <- setRefClass("ThreddsNodeRefClass",
    fields = list(
@@ -14,12 +15,12 @@ ThreddsNodeRefClass <- setRefClass("ThreddsNodeRefClass",
       verbose_mode = "logical",
       tries = 'numeric'),
    methods = list(
-      
+
       initialize = function(x, verbose = FALSE, n_tries = 3){
-         "x may be url or XML::xmlNode"
+         "x may be url or xml2::xml_node"
          if (!missing(x)){
             if (is_xmlNode(x)) {
-               .self$node <- x
+               .self$node <- xml2::xml_ns_strip(x)
                .self$url <- 'none'
                .self$verbose_mode <- verbose
                .self$tries <- n_tries
@@ -27,27 +28,29 @@ ThreddsNodeRefClass <- setRefClass("ThreddsNodeRefClass",
                .self$handle <- httr::handle(x)
                r <- httr::GET(x)
                if (reponse(r) == 200){
-                  .self$node <- XML::xmlRoot(content(x))
+                  resp <- httr::get(x)
+                  .self$node <- xml2::xml_ns_strip(httr::content(resp))
                   .self$url <- x
                   .self$verbose_mode <- verbose
                   .self$tries <- n_tries
                }
-               
+
             }
          }
       },
-      
+
       show = function(prefix = ""){
          "show the content of the class"
          cat(prefix, "Reference Class: ", methods::classLabel(class(.self)), "\n", sep = "")
          cat(prefix, "  verbose_mode: ", .self$verbose_mode, "\n", sep = "")
+         cat(prefix, "  tries: ", .self$tries, "\n", sep = "")
          cat(prefix, "  url: ", .self$url, "\n", sep = "")
          if (is_xmlNode(.self$node)) {
             cat(prefix, "  children: ", paste(.self$unames(), collapse = " "), "\n", sep = "")
          }
       })
-      
-   ) 
+
+   )
 
 #' Retrieve the url of this node (mostly gets an override by subclasses?)
 #'
@@ -55,19 +58,19 @@ ThreddsNodeRefClass <- setRefClass("ThreddsNodeRefClass",
 #' @name ThreddsNodeRefClass_get_url
 #' @return character url (possibly invalid)
 NULL
-ThreddsNodeRefClass$methods( 
+ThreddsNodeRefClass$methods(
    get_url = function(){
       .self$url
    })
-   
-   
+
+
 #' Retrieve a node of the contents at this nodes URL
 #'
 #' @family Thredds
 #' @name ThreddsNodeRefClass_GET
 #' @return ThreddsNodeRefClass or subclass or NULL
 NULL
-ThreddsNodeRefClass$methods( 
+ThreddsNodeRefClass$methods(
    GET = function(){
       if (.self$verbose_mode) cat("GET", .self$url, "\n")
       i <- 1
@@ -77,13 +80,13 @@ ThreddsNodeRefClass$methods(
          r <- try(httr::GET(.self$url))
          if (inherits(r, "try-error")){
             if (.self$verbose_mode) {
-               cat(sprintf("*** GET failed after attempt %i\n", i))   
+               cat(sprintf("*** GET failed after attempt %i\n", i))
                if (i < .self$tries) {
                   cat("  will try again\n")
-               } else { 
+               } else {
                   cat("  exhausted permitted tries, returning NULL\n")
                }
-            } 
+            }
             r <- NULL
             i <- i + 1
          } else {
@@ -94,15 +97,21 @@ ThreddsNodeRefClass$methods(
       }
       return(r)
    })
-   
+
 #' Retrieve a vector of unique child names
 #'
 #' @family Thredds
 #' @name ThreddsNodeRefClass_unames
 #' @return a vector of unique children names
 NULL
-ThreddsNodeRefClass$methods( 
-   unames = function(){ 
-      x <- if (is_xmlNode(.self$node)) unique(names(.self$node)) else ""
+ThreddsNodeRefClass$methods(
+   unames = function(){
+      x <-  if (is_xmlNode(.self$node)) {
+                unique(.self$node %>%
+                        xml2::xml_children() %>%
+                        sapply(xml2::xml_name))
+            } else {
+                ""
+            }
       return(x)
    })

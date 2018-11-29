@@ -7,10 +7,10 @@
 # Multiple access methods specify different services for accessing the same
 # dataset.
 
-       
+
 
 #' A direct Dataset representation that subclasses from ThreddsNodeRefClass
-#' 
+#'
 #' @family Thredds
 #' @include Datasets.R Thredds.R
 #' @field dataSize numeric size in bytes
@@ -19,14 +19,14 @@
 #' @export
 DatasetRefClass <- setRefClass("DatasetRefClass",
    contains = 'DatasetsRefClass',
-   
+
    fields = list(
       dataSize = 'numeric',
       date = 'character',
       serviceName = 'character',
       urlPath = 'character'
       ),
-      
+
    methods = list(
       initialize = function(x, ...){
          callSuper(x, ...)
@@ -36,15 +36,18 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
             .self$serviceName <- as.character(NA)
             .self$urlPath <- as.character(NA)
          } else {
-            nm <- names(XML::xmlChildren(.self$node))
-            if ('dataSize' %in% nm)
-               .self$dataSize <- as.numeric(XML::xmlValue(.self$node[['dataSize']]))
-            
-            if ('date' %in% nm) 
-               .self$date <- XML::xmlValue(.self$node[['date']])
-                  
-            if ('access' %in% nm){
-               atts <- XML::xmlAttrs(.self$node[['access']])
+
+            .self$dataSize <- .self$node %>%
+                xml2::xml_find_first(".//dataSize") %>%
+                xml2::xml_double()
+
+            .self$date <- .self$node %>%
+                xml2::xml_find_first(".//date") %>%
+                xml2::xml_text()
+
+            tmp <- .self$node %>% xml2::xml_find_first(".//access")
+            if (xml2::xml_length(tmp) > 0){
+               atts <- xml2::xml_attrs(tmp)
                natts <- names(atts)
                nm <- c("serviceName", "urlPath")
                for (n in nm) {
@@ -53,11 +56,11 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
             } # access?
          } # is_xmlNode?
       },
-      
+
       show = function(prefix = ""){
          "show the contents"
          callSuper(prefix = prefix)
-         if (is_xmlNode(.self$node)){ 
+         if (is_xmlNode(.self$node)){
             cat(prefix, "  dataSize:", .self$dataSize, "\n", sep = "")
             cat(prefix, "  date:", .self$date, "\n", sep = "")
             cat(prefix, "  serviceName:", .self$serviceName, "\n", sep = "")
@@ -67,7 +70,7 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
    )
 )
 
-       
+
 #' Overrides the GET method of the superclass.  GET is not permitted
 #'
 #' @name DatasetRefClass_GET

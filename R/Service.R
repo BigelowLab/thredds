@@ -1,10 +1,10 @@
 # http://www.unidata.ucar.edu/software/thredds/current/tds/catalog/InvCatalogSpec.html#service
-# A service element represents a data access service and allows basic data 
+# A service element represents a data access service and allows basic data
 # access information to be factored out of dataset and access elements.
 
 
 #' An Service representation that subclasses from ThreddsNodeRefClass
-#' 
+#'
 #' @family Thredds
 #' @include Thredds.R
 #' @field name character
@@ -21,7 +21,7 @@ ServiceRefClass <- setRefClass("ServiceRefClass",
       initialize = function(x, ...){
          callSuper(x, ...)
          if (is_xmlNode(.self$node)){
-            atts <- XML::xmlAttrs(x)
+            atts <- xml2::xml_attrs(x)
             natts <- names(atts)
             if ("name" %in% natts) .self$name <- atts[['name']]
             if ('serviceType' %in% natts) .self$serviceType <- atts[['serviceType']]

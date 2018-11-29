@@ -23,7 +23,7 @@ DatasetsRefClass <- setRefClass("DatasetsRefClass",
       initialize = function(x, ...){
          callSuper(x, ...)
          if (is_xmlNode(.self$node)){
-            atts <- XML::xmlAttrs(.self$node)
+            atts <- xml2::xml_attrs(.self$node)
             natts <- names(atts)
             nm <- c("name", "ID")
             for (n in nm) {
@@ -31,14 +31,14 @@ DatasetsRefClass <- setRefClass("DatasetsRefClass",
             }
          }
       },
-      
+
       show = function(prefix = ""){
          "show the contents"
          callSuper(prefix = prefix)
          if (is_xmlNode(.self$node) && inherits(.self, 'DatasetsRefClass')){
-            x <- .self$node['dataset', all = TRUE]
-            nm <- if (length(x) > 0) 
-               sapply(x, function(x) XML::xmlAttrs(x)[['name']]) else
+            x <- xml2::xml_find_all(.self$node, ".//dataset")
+            nm <- if (xml2::xml_length(x) > 0)
+               sapply(x, function(x) xml2::xml_attrs(x)[['name']]) else
                "NA"
             cat(prefix, "  datasets: ", paste(nm, collapse = " "), "\n", sep = "")
          }
@@ -54,14 +54,20 @@ DatasetsRefClass$methods(
    get_url = function(){
       .self$name
    })
- 
+
 #' Retrieve the datasets from a dataset collection
 #'
 #' @name DatasetsRefClass_get_collection
-#' @return a list of DatasetRefClass or NULL
+#' @return a list of zero or more DatasetRefClass
 NULL
 DatasetsRefClass$methods(
    get_collection = function(){
       if (!is_xmlNode(.self$node)) return(NULL)
-      lapply(.self$node[['dataset']]['dataset', all = TRUE], parse_node)
+      x <- .self$node %>% xml2::xml_find_all(".//dataset/dataset")
+      x <- if (xml2::xml_length(x) > 0){
+            lapply(x, parse_node)
+        } else {
+            NULL
+        }
+    x
    })
