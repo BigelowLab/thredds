@@ -1,0 +1,24 @@
+Package: threddscrawler
+Title: A limited [THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html)
+crawler for programmatically navigating THREDDS catalogs
+Version: 0.1
+Depends:
+    R (>= 3.0)
+Imports:
+    methods,
+    magrittr,
+    httr,
+    xml2
+Maintainer: Ben Tupper <btupper@bigelow.org>
+Author: Ben Tupper <btupper@bigelow.org>
+URL: https://github.com/btupper/threddscrawler2
+License: GPL (>= 2)
+Collate:
+    'Thredds.R'
+    'Catalog.R'
+    'Datasets.R'
+    'Dataset.R'
+    'Service.R'
+    'TopCatalog.R'
+    'misc.R'
+RoxygenNote: 5.0.1
