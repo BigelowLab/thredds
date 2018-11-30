@@ -1,8 +1,9 @@
-#' threddscrawler for navigating THREDDS catalogs
+#' thredds2: A crawler for navigating THREDDS catalogs
 #'
-#' A limited THREDDS crawler for programmatically navigating THREDDS catalogs.
+#' A limited crawler for programmatically navigating THREDDS catalogs.
 #'
-#' @name thredds2
+#' @name thredds
 #' @docType package
 #' @importFrom methods new
 #' @importFrom magrittr %>%
+NULL

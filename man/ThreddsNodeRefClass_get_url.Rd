@@ -16,3 +16,4 @@ Other Thredds: \code{\link{DatasetRefClass-class}},
   \code{\link{ThreddsNodeRefClass_GET}},
   \code{\link{ThreddsNodeRefClass_unames}}
 }
+

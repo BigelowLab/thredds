@@ -7,7 +7,7 @@
 xml_children_names(x, unique_only = TRUE)
 }
 \arguments{
-\item{x}{xmls::xml_node}
+\item{x}{xml2::xml_node}
 
 \item{unique_only}{logical if TRUE remove duplicates}
 }
@@ -17,3 +17,4 @@ zero or more child names.  If none an empty character string is returned
 \description{
 Get the names of children
 }
+

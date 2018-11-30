@@ -15,3 +15,4 @@ character
 \description{
 Convert xm2::xml_node to character
 }
+

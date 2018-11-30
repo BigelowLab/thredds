@@ -46,7 +46,7 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
                 xml2::xml_text()
 
             tmp <- .self$node %>% xml2::xml_find_first(".//access")
-            if (xml2::xml_length(tmp) > 0){
+            if (length(tmp) > 0){
                atts <- xml2::xml_attrs(tmp)
                natts <- names(atts)
                nm <- c("serviceName", "urlPath")

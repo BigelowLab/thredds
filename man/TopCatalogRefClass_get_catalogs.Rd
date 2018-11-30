@@ -2,13 +2,22 @@
 % Please edit documentation in R/TopCatalog.R
 \name{TopCatalogRefClass_get_catalogs}
 \alias{TopCatalogRefClass_get_catalogs}
-\title{Get a list of CatalogRef Children}
+\title{Get a list one or more of CatalogRef Children}
+\arguments{
+\item{index}{the integer index (1,...,nChild), indices or name(s)}
+
+\item{xpath}{character xpath representation}
+}
 \value{
 a list of CatalogRefClass, possibly NULL
 }
 \description{
-Get a list of CatalogRef Children
+Get a list one or more of CatalogRef Children
 }
 \seealso{
-Other TopCatalog: \code{\link{TopCatalogRefClass_get_datasets}}
+Other TopCatalog: \code{\link{TopCatalogRefClass_get_catalog_names}},
+  \code{\link{TopCatalogRefClass_get_dataset_names}},
+  \code{\link{TopCatalogRefClass_get_datasets}},
+  \code{\link{TopCatalogRefClass_parse_dataset}}
 }
+

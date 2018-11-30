@@ -17,3 +17,4 @@ ThreddsNodeRefClass or subclass or NULL
 \description{
 Retrieve a catalog
 }
+

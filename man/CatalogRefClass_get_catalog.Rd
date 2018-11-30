@@ -9,3 +9,4 @@ TopCatalogRefClass or NULL
 \description{
 Retrieve the top catalog this catalog points to
 }
+

@@ -9,3 +9,4 @@ a list of zero or more DatasetRefClass
 \description{
 Retrieve the datasets from a dataset collection
 }
+

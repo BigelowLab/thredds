@@ -2,8 +2,8 @@
 % Please edit documentation in R/Thredds.R
 \docType{class}
 \name{ThreddsNodeRefClass-class}
-\alias{ThreddsNodeRefClass-class}
 \alias{ThreddsNodeRefClass}
+\alias{ThreddsNodeRefClass-class}
 \title{An base representation that other nodes subclass from}
 \description{
 An base representation that other nodes subclass from
@@ -21,7 +21,6 @@ An base representation that other nodes subclass from
 
 \item{\code{tries}}{numeric}
 }}
-
 \section{Methods}{
 
 \describe{

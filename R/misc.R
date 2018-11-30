@@ -37,7 +37,7 @@ xmlString <- function(x){
 
 #' Get the names of children
 #' @export
-#' @param x xmls::xml_node
+#' @param x xml2::xml_node
 #' @param unique_only logical if TRUE remove duplicates
 #' @return zero or more child names.  If none an empty character string is returned
 xml_children_names <- function(x, unique_only = TRUE){
@@ -84,9 +84,9 @@ parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8'){
    # direct (to data) and return the appropriate data type
    parse_dataset <- function(x, verbose = FALSE){
       if ('dataset' %in% xml_children_names(x)){
-         r <- DatasetRefClass$new(x, verbose = verbose)
-      } else {
          r <- DatasetsRefClass$new(x, verbose = verbose)
+      } else {
+         r <- DatasetRefClass$new(x, verbose = verbose)
       }
       return(r)
    }

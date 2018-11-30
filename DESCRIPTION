@@ -1,6 +1,7 @@
-Package: thredds2
-Title: threddscrawler for navigating THREDDS catalogs
-Description: A limited THREDDS crawler for programmatically navigating THREDDS catalogs.
+Package: thredds
+Title: thredds: A crawler for navigating THREDDS catalogs
+Description: A limited crawler for programmatically navigating THREDDS
+    catalogs.
 Version: 0.1
 Depends:
     R (>= 3.0)
@@ -22,4 +23,4 @@ Collate:
     'TopCatalog.R'
     'misc.R'
     'thredds2-package.R'
-RoxygenNote: 6.1.1
+RoxygenNote: 5.0.1

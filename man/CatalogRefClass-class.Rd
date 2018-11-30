@@ -2,8 +2,8 @@
 % Please edit documentation in R/Catalog.R
 \docType{class}
 \name{CatalogRefClass-class}
-\alias{CatalogRefClass-class}
 \alias{CatalogRefClass}
+\alias{CatalogRefClass-class}
 \title{An catalogRef representation that subclasses from ThreddsNodeRefClass}
 \description{
 An catalogRef representation that subclasses from ThreddsNodeRefClass
@@ -21,7 +21,6 @@ An catalogRef representation that subclasses from ThreddsNodeRefClass
 
 \item{\code{ID}}{character}
 }}
-
 \section{Methods}{
 
 \describe{

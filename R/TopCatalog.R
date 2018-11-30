@@ -23,7 +23,7 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
          if (is_xmlNode(.self$node)){
             if ("dataset" %in% xml_children_names(.self$node)){
                catalogRefs <- xml2::xml_find_all(.self$node, ".//dataset/catalogRef")
-               if (xml2::xml_length(catalogRefs) > 0){
+               if (length(catalogRefs) > 0){
                   x <- sapply(catalogRefs,
                      function(x) {
                         atts <- xml2::xmt_atts(x)
@@ -37,11 +37,14 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
 
                   cat(prefix, "  catalogs: ", paste(x, collapse = " "), "\n", sep = "")
                } #has catalogRef
-               datasets <- xml_find_all(.self$node, ".//dataset/dataset")
-               if (xml2::xml_length(datasets)>0){
+               datasets <- xml2::xml_find_all(.self$node, ".//dataset/dataset")
+               if (length(datasets) > 0){
                   x <- sapply(datasets,
-                     function(x) xmls::xml_attrs(x)[['name']])
-                  cat(prefix, "  datasets: ", paste(x, collapse = " "), "\n", sep = "")
+                     function(x) xml2::xml_attrs(x)[['name']])
+                  nx = length(x)
+                  n = 2
+                  if (nx > 10) x = c(x[1:n], "...", x[(nx-n-1):nx])
+                  cat(prefix, paste0("  datasets [", nx, "]: "), paste(x, collapse = " "), "\n", sep = "")
                } #has datasets (sub-datasets)
             } #has dataset
          } #is_xmlNode
@@ -52,53 +55,120 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
 
 
 
-#' Get a list of CatalogRef Children
+#' Get a list one or more of CatalogRef Children
 #'
 #' @family TopCatalog
 #' @name TopCatalogRefClass_get_catalogs
+#' @param index the integer index (1,...,nChild), indices or name(s)
+#' @param xpath character xpath representation
 #' @return a list of CatalogRefClass, possibly NULL
 NULL
 TopCatalogRefClass$methods(
-    get_catalogs = function(){
+    get_catalogs = function(index, xpath = ".//dataset/catalogRef"){
 
-    catalogRefs <- xml2::xml_find_all(.self$node, ".//dataset/catalogRef")
-    if (xml2::xml_length(catalogRefs) > 0){
-        x <- lapply(catalogRefs,
-           function(x, uri = NULL, verbose = FALSE) {
-              n <- parse_node(x, verbose = verbose)
-              n$url <- gsub("catalog.xml", n$href, uri)
-              return(n)
-           }, uri = .self$url, verbose = .self$verbose_mode )
-        names(x) <- sapply(x, "[[", "name")
+    ds <- .self$node %>% xml2::xml_find_all(xpath)
+
+    if (length(ds) == 0) return(NULL)
+
+    if (missing(index)) index <- seq_along(ds)
+
+    if (inherits(index, "character")){
+        dd <- ds[sapply(ds, function(x) xml2::xml_attrs(x)[['name']]) %in% index]
     } else {
-        x <- NULL
+        dd <- ds[index]
     }
-
-      return(x)
+    x <- lapply(dd, .self$parse_dataset_node)
+    names(x) <- sapply(x, "[[", "name")
+    x
    })
 
 
-#' Get a list of Dataset Children
-#'
+
+
+
+#' Get list one or more dataset children
 #' @family TopCatalog
 #' @name TopCatalogRefClass_get_datasets
-#' @return a list of DatasetRefClass, possibly NULL
+#' @param index the integer index (1,...,nChild), indices or name(s)
+#' @param xpath character xpath representation
+#' @return a list of DatasetRefClass or NULL
 NULL
 TopCatalogRefClass$methods(
-   get_datasets = function(){
+    get_datasets = function(index, xpath = ".//dataset/dataset"){
 
-    datasets <- xml2::xml_find_all(.self$node, ".//dataset/dataset")
-    if (xml2::xml_length(datasets)>0){
-        x <- lapply(datasets,
-           function(x, uri = NULL, verbose = FALSE) {
-              n <- parse_node(x)
-              n$url <- gsub("catalog.xml", n$name, uri)
-              return(n)
-           }, uri = .self$url, verbose = .self$verbose_mode )
-        names(x) <- sapply(x, "[[", "name")
+    ds <- .self$node %>% xml2::xml_find_all(xpath)
+
+    if (length(ds) == 0) return(NULL)
+
+    if (missing(index)) index <- seq_along(ds)
+
+    if (inherits(index, "character")){
+        dd <- ds[sapply(ds, function(x) xml2::xml_attrs(x)[['name']]) %in% index]
     } else {
-        x <- NULL
+        dd <- ds[index]
     }
-      return(x)
-   })
+    x <- lapply(dd, .self$parse_dataset_node)
+    names(x) <- sapply(x, "[[", "name")
+    x
+})
 
+
+#' Get a list of CalatogRef child names
+#'
+#' @family TopCatalog
+#' @name TopCatalogRefClass_get_catalog_names
+#' @return character vector
+NULL
+TopCatalogRefClass$methods(
+   get_catalog_names = function(){
+
+    .self$node %>%
+        xml2::xml_find_all(".//dataset/catalogRef") %>%
+        sapply(function(x) xml2::xml_attrs(x)[['name']])
+})
+
+#' Get a list of Dataset child names
+#'
+#' @family TopCatalog
+#' @name TopCatalogRefClass_get_dataset_names
+#' @return character vector
+NULL
+TopCatalogRefClass$methods(
+   get_dataset_names = function(){
+
+    .self$node %>%
+        xml2::xml_find_all(".//dataset/dataset") %>%
+        sapply(function(x) xml2::xml_attrs(x)[['name']])
+})
+
+
+#' Parse a catlog node
+#'
+#' @family TopCatalog
+#' @name TopCatalogRefClass_parse_dataset
+#' @param x xml_node
+#' @return CatalogRefNode
+NULL
+TopCatalogRefClass$methods(
+    parse_catalog_node = function(x){
+        n <- parse_node(x)
+        n$url <- gsub("catalog.xml", n$name, .self$url)
+        n$verbose_mode <- .self$verbose_mode
+        return(n)
+    })
+
+
+#' Parse a dataset node
+#'
+#' @family TopCatalog
+#' @name TopCatalogRefClass_parse_dataset
+#' @param x xml_node
+#' @return DatasetRefNode
+NULL
+TopCatalogRefClass$methods(
+    parse_dataset_node = function(x){
+        n <- parse_node(x)
+        n$url <- gsub("catalog.xml", n$name, .self$url)
+        n$verbose_mode <- .self$verbose_mode
+        return(n)
+    })
