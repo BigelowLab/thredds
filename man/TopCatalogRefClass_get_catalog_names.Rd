@@ -7,12 +7,14 @@
 character vector
 }
 \description{
-Get a list of CalatogRef child names
+Not all catalog refs have a name attribute.  When absent we try to substitute
+ title, ID and finally href in that order.
 }
 \seealso{
 Other TopCatalog: \code{\link{TopCatalogRefClass_get_catalogs}},
   \code{\link{TopCatalogRefClass_get_dataset_names}},
   \code{\link{TopCatalogRefClass_get_datasets}},
+  \code{\link{TopCatalogRefClass_list_services}},
   \code{\link{TopCatalogRefClass_parse_dataset}}
 }
 

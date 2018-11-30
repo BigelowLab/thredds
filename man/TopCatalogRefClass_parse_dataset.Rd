@@ -22,11 +22,13 @@ Parse a dataset node
 Other TopCatalog: \code{\link{TopCatalogRefClass_get_catalog_names}},
   \code{\link{TopCatalogRefClass_get_catalogs}},
   \code{\link{TopCatalogRefClass_get_dataset_names}},
-  \code{\link{TopCatalogRefClass_get_datasets}}
+  \code{\link{TopCatalogRefClass_get_datasets}},
+  \code{\link{TopCatalogRefClass_list_services}}
 
 Other TopCatalog: \code{\link{TopCatalogRefClass_get_catalog_names}},
   \code{\link{TopCatalogRefClass_get_catalogs}},
   \code{\link{TopCatalogRefClass_get_dataset_names}},
-  \code{\link{TopCatalogRefClass_get_datasets}}
+  \code{\link{TopCatalogRefClass_get_datasets}},
+  \code{\link{TopCatalogRefClass_list_services}}
 }
 

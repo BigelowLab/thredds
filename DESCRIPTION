@@ -12,7 +12,7 @@ Imports:
     xml2
 Maintainer: Ben Tupper <btupper@bigelow.org>
 Author: Ben Tupper <btupper@bigelow.org>
-URL: https://github.com/BigelowLab/threddscrawler2
+URL: https://github.com/BigelowLab/thredds
 License: MIT + file LICENSE
 Collate:
     'Thredds.R'

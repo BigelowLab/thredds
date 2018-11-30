@@ -64,7 +64,7 @@ CatalogRefClass <- setRefClass("CatalogRefClass",
 NULL
 CatalogRefClass$methods(
    get_catalog = function(){
-      threddscrawler::get_catalog(.self$url)
+      thredds::get_catalog(.self$url)
    })
 
 #' Retrieve the URL for a non-collection dataset
@@ -74,5 +74,6 @@ CatalogRefClass$methods(
 NULL
 CatalogRefClass$methods(
    get_url = function(){
-      return(sub("catalog.xml", .self$href, .self$url, fixed = TRUE))
+      #return(sub("catalog.xml", .self$href, .self$url, fixed = TRUE))
+      return(.self$url)
    })

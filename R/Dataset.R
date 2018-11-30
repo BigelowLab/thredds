@@ -61,10 +61,10 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
          "show the contents"
          callSuper(prefix = prefix)
          if (is_xmlNode(.self$node)){
-            cat(prefix, "  dataSize:", .self$dataSize, "\n", sep = "")
-            cat(prefix, "  date:", .self$date, "\n", sep = "")
-            cat(prefix, "  serviceName:", .self$serviceName, "\n", sep = "")
-            cat(prefix, "  urlPath:", .self$urlPath, "\n", sep = "")
+            cat(prefix, "  dataSize: ", .self$dataSize, "\n", sep = "")
+            cat(prefix, "  date: ", .self$date, "\n", sep = "")
+            cat(prefix, "  serviceName: ", .self$serviceName, "\n", sep = "")
+            cat(prefix, "  urlPath: ", .self$urlPath, "\n", sep = "")
          }
       }
    )
@@ -80,3 +80,29 @@ DatasetRefClass$methods(
    GET = function(){
       cat("DatasetRefClass$GET is not permitted. Try ncdf4::nc_open(ref$url)\n")
    })
+
+
+
+#' Retrieve the URL for a dataset
+#'
+#' Datasets may not be aware of the the way they are served (OPeNDAP, WMS, NCML, etc)
+#' Typically this maybe known at the TopCatalog that reference the dataset.
+#' This function provides a convenient way to form the URL for data access rather than
+#' simple HMTL viewing.
+#'
+#' @name DatasetRefClass_get_url
+#' @param service character or NULL.  If not NULL then substitute the value
+#'      of \code{replace} with this.  OPeNDAP is "thredds/dodsC".
+#' @return character
+NULL
+DatasetRefClass$methods(
+    get_url = function(service = NULL, replace = '/thredds/catalog/'){
+
+        x <- if (!is.null(service)){
+            sub(replace, service, .self$url, fixed = TRUE)
+        } else {
+            .self$url
+        }
+        x
+   })
+
