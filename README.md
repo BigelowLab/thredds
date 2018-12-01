@@ -33,6 +33,9 @@ install_github("bigelowlab/thredds")
 
 #### An example from [GoMOFS](https://tidesandcurrents.noaa.gov/ofs/gomofs/gomofs.html)
 
+
+Start with the XML companion to this [catalog page](https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.html)
+
 ```
 library(thredds)
 library(ncdf4)
@@ -54,9 +57,7 @@ A `TopCatalog` may contain catalogs or datasets under the `dataset` element. In 
 retrieve a complete listing of catalog names, and then retrieve just one by name. Note
 that a list of catalogs are returned, even if just one is requested.
 
-
 ```
-
 top$get_catalog_names()
 #  [1] "201811" "201810" "201809" "201808" "201807" "201806" "201805" "201804"
 #  [9] "201803" "201802" "201801" "201712" "201711" "201710" "201709" "201708"
@@ -77,6 +78,7 @@ cataRef
 #   type:
 #   ID:NOAA/GOMOFS/MODELS/201801
 ```
+It's HTML equivalent is [here](https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/201801/catalog.html)
 
 Note that this is a CatalogRef - a pointer to the sub catalog with more content from
 January 2018. To retrieve that content we need the get the catalog itself (not just its
