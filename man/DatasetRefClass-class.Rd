@@ -2,8 +2,8 @@
 % Please edit documentation in R/Dataset.R
 \docType{class}
 \name{DatasetRefClass-class}
-\alias{DatasetRefClass}
 \alias{DatasetRefClass-class}
+\alias{DatasetRefClass}
 \title{A direct Dataset representation that subclasses from ThreddsNodeRefClass}
 \description{
 A direct Dataset representation that subclasses from ThreddsNodeRefClass
@@ -17,11 +17,13 @@ A direct Dataset representation that subclasses from ThreddsNodeRefClass
 
 \item{\code{urlPath}}{character relative URL, use url or get_url() instead}
 }}
+
 \section{Methods}{
 
 \describe{
 \item{\code{show(prefix = "")}}{show the contents}
 }}
+
 \seealso{
 Other Thredds: \code{\link{DatasetsRefClass-class}},
   \code{\link{ServiceRefClass-class}},
@@ -29,4 +31,4 @@ Other Thredds: \code{\link{DatasetsRefClass-class}},
   \code{\link{ThreddsNodeRefClass_get_url}},
   \code{\link{ThreddsNodeRefClass_unames}}
 }
-
+\concept{Thredds}

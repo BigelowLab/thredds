@@ -49,6 +49,15 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
                   if (nx > 10) x = c(x[1:n], "...", x[(nx-n+1):nx])
                   cat(prefix, paste0("  datasets [", nx, "]: "), paste(x, collapse = " "), "\n", sep = "")
                } #has datasets (sub-datasets)
+               datasets <- xml2::xml_find_all(.self$node, ".//dataset")
+               if (length(datasets) > 0){
+                 x <- sapply(datasets,
+                             function(x) xml2::xml_attrs(x)[['name']])
+                 nx = length(x)
+                 n = 2
+                 if (nx > 10) x = c(x[1:n], "...", x[(nx-n+1):nx])
+                 cat(prefix, paste0("  datasets [", nx, "]: "), paste(x, collapse = " "), "\n", sep = "")
+               } #has datasets (sub-datasets)
             } #has dataset
          } #is_xmlNode
       })
@@ -58,13 +67,14 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
 #'
 #' @family TopCatalog
 #' @name TopCatalogRefClass_list_services
+#' @param xpath character xpath representation
 #' @return list of zero or more character vectors
 NULL
 TopCatalogRefClass$methods(
-    list_services = function(){
+    list_services = function(xpath = ".//service/service"){
 
         x <- .self$node %>%
-            xml2::xml_find_all(".//service/service") %>%
+            xml2::xml_find_all(xpath) %>%
             sapply( function(x) xml2::xml_attrs(x) , simplify = FALSE)
         names(x) <- sapply(x, "[[", "name")
         x
@@ -134,13 +144,14 @@ TopCatalogRefClass$methods(
 #'  title, ID and finally href in that order.
 #' @family TopCatalog
 #' @name TopCatalogRefClass_get_catalog_names
+#' @param xpath character xpath representation
 #' @return character vector
 NULL
 TopCatalogRefClass$methods(
-   get_catalog_names = function(){
+   get_catalog_names = function(xpath = ".//dataset/catalogRef"){
 
     .self$node %>%
-        xml2::xml_find_all(".//dataset/catalogRef") %>%
+        xml2::xml_find_all(xpath) %>%
         sapply(function(x) {
                         atts <- xml2::xml_attrs(x)
                         natts <- names(atts)
@@ -157,13 +168,14 @@ TopCatalogRefClass$methods(
 #'
 #' @family TopCatalog
 #' @name TopCatalogRefClass_get_dataset_names
+#' @param xpath character xpath representation
 #' @return character vector
 NULL
 TopCatalogRefClass$methods(
-   get_dataset_names = function(){
+   get_dataset_names = function(xpath = ".//dataset/dataset"){
 
     .self$node %>%
-        xml2::xml_find_all(".//dataset/dataset") %>%
+        xml2::xml_find_all(xpath) %>%
         sapply(function(x) xml2::xml_attrs(x)[['name']])
 })
 

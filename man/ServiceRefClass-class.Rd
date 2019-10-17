@@ -2,8 +2,8 @@
 % Please edit documentation in R/Service.R
 \docType{class}
 \name{ServiceRefClass-class}
-\alias{ServiceRefClass}
 \alias{ServiceRefClass-class}
+\alias{ServiceRefClass}
 \title{An Service representation that subclasses from ThreddsNodeRefClass}
 \description{
 An Service representation that subclasses from ThreddsNodeRefClass
@@ -17,6 +17,7 @@ An Service representation that subclasses from ThreddsNodeRefClass
 
 \item{\code{base}}{character base url}
 }}
+
 \section{Methods}{
 
 \describe{
@@ -24,6 +25,7 @@ An Service representation that subclasses from ThreddsNodeRefClass
 
 \item{\code{show(prefix = "")}}{show the content of the class}
 }}
+
 \seealso{
 Other Thredds: \code{\link{DatasetRefClass-class}},
   \code{\link{DatasetsRefClass-class}},
@@ -31,4 +33,4 @@ Other Thredds: \code{\link{DatasetRefClass-class}},
   \code{\link{ThreddsNodeRefClass_get_url}},
   \code{\link{ThreddsNodeRefClass_unames}}
 }
-
+\concept{Thredds}

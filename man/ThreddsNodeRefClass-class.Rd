@@ -2,8 +2,8 @@
 % Please edit documentation in R/Thredds.R
 \docType{class}
 \name{ThreddsNodeRefClass-class}
-\alias{ThreddsNodeRefClass}
 \alias{ThreddsNodeRefClass-class}
+\alias{ThreddsNodeRefClass}
 \title{An base representation that other nodes subclass from}
 \description{
 An base representation that other nodes subclass from
@@ -21,9 +21,11 @@ An base representation that other nodes subclass from
 
 \item{\code{tries}}{numeric}
 }}
+
 \section{Methods}{
 
 \describe{
 \item{\code{initialize(x, verbose = FALSE, n_tries = 3)}}{x may be url or xml2::xml_node}
 }}
 
+\concept{Thredds2}

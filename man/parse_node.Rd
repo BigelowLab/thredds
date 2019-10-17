@@ -21,4 +21,3 @@ ThreddsNodeRefClass object or subclass
 \description{
 Convert a node to an object inheriting from ThreddsNodeRefClass
 }
-

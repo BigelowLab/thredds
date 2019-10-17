@@ -16,4 +16,3 @@ Typically this maybe known at the TopCatalog that reference the dataset.
 This function provides a convenient way to form the URL for data access rather than
 simple HMTL viewing.
 }
-

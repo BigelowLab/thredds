@@ -14,3 +14,4 @@ An catalog representation that sublcasses from ThreddsNodeRefClass
 \item{\code{show(prefix = "")}}{show the content of the class}
 }}
 
+\concept{Thredds TopCatalog}

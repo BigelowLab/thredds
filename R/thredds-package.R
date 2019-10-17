@@ -1,4 +1,4 @@
-#' thredds2: A crawler for navigating THREDDS catalogs
+#' thredds: A crawler for navigating THREDDS catalogs
 #'
 #' A limited crawler for programmatically navigating THREDDS catalogs.
 #'

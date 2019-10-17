@@ -54,6 +54,17 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
                   if (n %in% natts) .self[[n]] <- atts[[n]]
                }
             } # access?
+            # last chance to get the urlPath or others if not already found
+            # sometimes these are placed as attributes of the node, rather
+            # than as attributes of the 'access' child
+            if ((nchar(.self$urlPath) == 0) | is.na(.self$urlPath)){
+              atts <- xml2::xml_attrs(.self$node)
+              natts <- names(atts)
+              nm <- c("urlPath")
+              for (n in nm) {
+                if (n %in% natts) .self[[n]] <- atts[[n]]
+              }
+            }
          } # is_xmlNode?
       },
 

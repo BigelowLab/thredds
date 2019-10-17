@@ -3,10 +3,12 @@
 \name{DatasetsRefClass_get_collection}
 \alias{DatasetsRefClass_get_collection}
 \title{Retrieve the datasets from a dataset collection}
+\arguments{
+\item{xpath}{character, xpath specification}
+}
 \value{
 a list of zero or more DatasetRefClass
 }
 \description{
 Retrieve the datasets from a dataset collection
 }
-

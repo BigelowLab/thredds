@@ -6,4 +6,3 @@
 \description{
 Overrides the GET method of the superclass.  GET is not permitted
 }
-

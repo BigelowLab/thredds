@@ -2,8 +2,8 @@
 % Please edit documentation in R/Datasets.R
 \docType{class}
 \name{DatasetsRefClass-class}
-\alias{DatasetsRefClass}
 \alias{DatasetsRefClass-class}
+\alias{DatasetsRefClass}
 \title{A Dataset collection that subclasses from ThreddsNodeRefClass}
 \description{
 A Dataset collection that subclasses from ThreddsNodeRefClass
@@ -14,6 +14,7 @@ A Dataset collection that subclasses from ThreddsNodeRefClass
 \item{\code{name}}{character
 field ID character - seems to be a relative path}
 }}
+
 \section{Methods}{
 
 \describe{
@@ -21,6 +22,7 @@ field ID character - seems to be a relative path}
 
 \item{\code{show(prefix = "")}}{show the content of the class}
 }}
+
 \seealso{
 Other Thredds: \code{\link{DatasetRefClass-class}},
   \code{\link{ServiceRefClass-class}},
@@ -28,4 +30,4 @@ Other Thredds: \code{\link{DatasetRefClass-class}},
   \code{\link{ThreddsNodeRefClass_get_url}},
   \code{\link{ThreddsNodeRefClass_unames}}
 }
-
+\concept{Thredds}

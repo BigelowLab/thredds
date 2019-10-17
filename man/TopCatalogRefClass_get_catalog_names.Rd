@@ -3,6 +3,9 @@
 \name{TopCatalogRefClass_get_catalog_names}
 \alias{TopCatalogRefClass_get_catalog_names}
 \title{Get a list of CalatogRef child names}
+\arguments{
+\item{xpath}{character xpath representation}
+}
 \value{
 character vector
 }
@@ -17,4 +20,4 @@ Other TopCatalog: \code{\link{TopCatalogRefClass_get_catalogs}},
   \code{\link{TopCatalogRefClass_list_services}},
   \code{\link{TopCatalogRefClass_parse_dataset}}
 }
-
+\concept{TopCatalog}

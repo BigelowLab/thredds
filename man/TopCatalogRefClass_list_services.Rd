@@ -3,6 +3,9 @@
 \name{TopCatalogRefClass_list_services}
 \alias{TopCatalogRefClass_list_services}
 \title{List the services (if any)}
+\arguments{
+\item{xpath}{character xpath representation}
+}
 \value{
 list of zero or more character vectors
 }
@@ -16,4 +19,4 @@ Other TopCatalog: \code{\link{TopCatalogRefClass_get_catalog_names}},
   \code{\link{TopCatalogRefClass_get_datasets}},
   \code{\link{TopCatalogRefClass_parse_dataset}}
 }
-
+\concept{TopCatalog}

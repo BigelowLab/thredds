@@ -58,12 +58,13 @@ DatasetsRefClass$methods(
 #' Retrieve the datasets from a dataset collection
 #'
 #' @name DatasetsRefClass_get_collection
+#' @param xpath character, xpath specification
 #' @return a list of zero or more DatasetRefClass
 NULL
 DatasetsRefClass$methods(
-   get_collection = function(){
+   get_collection = function(xpath = ".//dataset/dataset"){
       if (!is_xmlNode(.self$node)) return(NULL)
-      x <- .self$node %>% xml2::xml_find_all(".//dataset/dataset")
+      x <- .self$node %>% xml2::xml_find_all(xpath)
       x <- if (length(x) > 0){
             lapply(x, parse_node)
         } else {

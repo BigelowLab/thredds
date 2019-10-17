@@ -17,4 +17,3 @@ logical vector
 \description{
 Determine if a vector of names match the greplargs
 }
-

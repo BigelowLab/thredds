@@ -17,4 +17,3 @@ zero or more child names.  If none an empty character string is returned
 \description{
 Get the names of children
 }
-
