@@ -35,14 +35,16 @@ install_github("bigelowlab/thredds")
 #### An example from [GoMOFS](https://tidesandcurrents.noaa.gov/ofs/gomofs/gomofs.html)
 
 
-Start with the XML companion to this [catalog page](https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.html)
+Start with the XML companion to this [catalog page](https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.html).
+It isn't super obvious browsing the resource, but it is important to specify the namespace
+for searching the thredds genealogy. See the note at the end on determining the namespace to search.
 
 ```
 library(thredds)
 library(ncdf4)
 library(thredds)
 uri = "https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.xml"
-top = get_catalog(uri)
+top = thredds::get_catalog(uri, ns = "d1")
 top
 # Reference Class: "TopCatalogRef"
 #   verbose_mode: FALSE
@@ -142,4 +144,26 @@ uri
 
 x <- ncdf4::nc_open(uri)
 ```
+
+
+### Note on searching within a namespace
+
+A given implementation of a THREDDS catalog system may rely upon an [XML namespace](https://en.wikipedia.org/wiki/XML_namespace).
+We have encountered these: [d1](https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.xml), another
+[d1](https://thredds.daac.ornl.gov/thredds/catalog/ornldaac/1328/catalog.xml) and
+[thredds](https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml).
+
+Sometimes the namespace is super obvious, like for [thredds](https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml).
+But when it isn't obvious then how to know what namespace to search within?
+
+```
+uri = "https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.xml"
+thredds::get_xml_ns(uri)
+# d1    <-> http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0
+# xlink <-> http://www.w3.org/1999/xlink
+```
+
+`xlink` is a standard xml namespace.  Other ones we have encountered include `bes`
+which is part of the THREDDS specification for back end server.
+
 

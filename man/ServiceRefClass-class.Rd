@@ -21,7 +21,7 @@ An Service representation that subclasses from ThreddsNodeRefClass
 \section{Methods}{
 
 \describe{
-\item{\code{initialize(x, verbose = FALSE, n_tries = 3)}}{x may be url or xml2::xml_node}
+\item{\code{initialize(x, verbose = FALSE, n_tries = 3, ns = "")}}{x may be url or xml2::xml_node}
 
 \item{\code{show(prefix = "")}}{show the content of the class}
 }}
@@ -30,7 +30,9 @@ An Service representation that subclasses from ThreddsNodeRefClass
 Other Thredds: \code{\link{DatasetRefClass-class}},
   \code{\link{DatasetsRefClass-class}},
   \code{\link{ThreddsNodeRefClass_GET}},
+  \code{\link{ThreddsNodeRefClass_browse}},
   \code{\link{ThreddsNodeRefClass_get_url}},
-  \code{\link{ThreddsNodeRefClass_unames}}
+  \code{\link{ThreddsNodeRefClass_unames}},
+  \code{\link{ThreddsNodeRefClass_xpath}}
 }
 \concept{Thredds}

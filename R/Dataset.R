@@ -29,23 +29,27 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
 
    methods = list(
       initialize = function(x, ...){
+         .self$dataSize <- NA_real_
+         .self$date <- NA_character_
+         .self$serviceName <- NA_character_
+         .self$urlPath <- NA_character_
          callSuper(x, ...)
          if (!is_xmlNode(.self$node)){
-            .self$dataSize <- as.numeric(NA)
-            .self$date <- as.character(NA)
-            .self$serviceName <- as.character(NA)
-            .self$urlPath <- as.character(NA)
+            .self$dataSize <- NA_real_
+            .self$date <- NA_character_
+            .self$serviceName <- NA_character_
+            .self$urlPath <- NA_character_
          } else {
 
             .self$dataSize <- .self$node %>%
-                xml2::xml_find_first(".//dataSize") %>%
+                xml2::xml_find_first(.self$xpath("dataSize", prefix = ".//")) %>%
                 xml2::xml_double()
 
             .self$date <- .self$node %>%
-                xml2::xml_find_first(".//date") %>%
+                xml2::xml_find_first(.self$xpath("date", prefix = ".//")) %>%
                 xml2::xml_text()
 
-            tmp <- .self$node %>% xml2::xml_find_first(".//access")
+            tmp <- .self$node %>% xml2::xml_find_first(.self$xpath("access", prefix = ".//"))
             if (length(tmp) > 0){
                atts <- xml2::xml_attrs(tmp)
                natts <- names(atts)
@@ -57,7 +61,7 @@ DatasetRefClass <- setRefClass("DatasetRefClass",
             # last chance to get the urlPath or others if not already found
             # sometimes these are placed as attributes of the node, rather
             # than as attributes of the 'access' child
-            if ((nchar(.self$urlPath) == 0) | is.na(.self$urlPath)){
+            if (is.null(.self$urlPath) || is.na(.self$urlPath) || (nchar(.self$urlPath) == 0) ){
               atts <- xml2::xml_attrs(.self$node)
               natts <- names(atts)
               nm <- c("urlPath")
@@ -116,4 +120,3 @@ DatasetRefClass$methods(
         }
         x
    })
-

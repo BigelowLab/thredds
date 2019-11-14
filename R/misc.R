@@ -53,6 +53,25 @@ xml_children_names <- function(x, unique_only = TRUE){
 }
 
 
+#' Retrieve the namespaces for a resource
+#'
+#' @export
+#' @param uri the URI of the catalog
+#' @return the output of \code{\link[xml2]{xml_ns}}
+get_xml_ns <- function(uri){
+
+  x <- httr::GET(uri)
+  if (httr::status_code(x) == 200){
+
+  } else {
+    stop("unable to retrieve url: ", uri)
+  }
+  x %>%
+    httr::content(type = 'text/xml', encoding = 'UTF-8') %>%
+    xml2::xml_ns()
+}
+
+
 #' Retrieve a catalog
 #'
 #' @export
@@ -77,16 +96,17 @@ get_catalog <- function(uri, ...){
 #' @param url character, optional url if a catalog or direct dataset
 #' @param verbose logical, by default FALSE
 #' @param encoding character, by default UTF-8
+#' @param ... further arguments for instantiation of classes (such as ns = "foo")
 #' @return ThreddsNodeRefClass object or subclass
-parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8'){
+parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8', ...){
 
    # given an 'dataset' xml2::xml_node determine if the node is a collection or
    # direct (to data) and return the appropriate data type
-   parse_dataset <- function(x, verbose = FALSE){
+   parse_dataset <- function(x, verbose = FALSE, ...){
       if ('dataset' %in% xml_children_names(x)){
-         r <- DatasetsRefClass$new(x, verbose = verbose)
+         r <- DatasetsRefClass$new(x, verbose = verbose, ...)
       } else {
-         r <- DatasetRefClass$new(x, verbose = verbose)
+         r <- DatasetRefClass$new(x, verbose = verbose, ...)
       }
       return(r)
    }
@@ -107,14 +127,38 @@ parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8'){
 
    nm <- xml2::xml_name(node)[1]
    n <- switch(nm,
-       'catalog' = TopCatalogRefClass$new(node, verbose = verbose),
-       'catalogRef' = CatalogRefClass$new(node, verbose = verbose),
-       'service' = ServiceRefClass$new(node, verbose = verbose),
-       'dataset' = parse_dataset(node, verbose = verbose),
-       ThreddsNodeRefClass$new(node, verbose = verbose))
+       'catalog' = TopCatalogRefClass$new(node, verbose = verbose, ...),
+       'catalogRef' = CatalogRefClass$new(node, verbose = verbose, ...),
+       'service' = ServiceRefClass$new(node, verbose = verbose, ...),
+       'dataset' = parse_dataset(node, verbose = verbose, ...),
+       ThreddsNodeRefClass$new(node, verbose = verbose, ...))
 
    if (!is.null(url)) n$url <- url
 
    return(n)
 }
 
+#' Build and xpath string, possibly using the user specified namespace
+#' declaration.
+#'
+#' @export
+#' @param x character one or more path segments
+#' @param prefix character either "./", ".//" or "//" or if NA or NA then ignored
+#' @param ns if "" or NA then ignored otherwise it is appended to each segment
+#' @return xpath descriptor
+build_xpath <- function(x,
+  prefix = ".//",
+  ns = ""){
+
+  if (!is.na(ns) && nchar(ns) >= 1){
+    x <- paste(ns, x, sep = ":")
+  }
+
+  x <- paste(x, collapse = "/")
+
+  if (!is.na(ns) || nchar(ns) > 0){
+   x <- paste0(prefix, x)
+  }
+
+  x
+}

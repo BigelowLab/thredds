@@ -28,7 +28,9 @@ A direct Dataset representation that subclasses from ThreddsNodeRefClass
 Other Thredds: \code{\link{DatasetsRefClass-class}},
   \code{\link{ServiceRefClass-class}},
   \code{\link{ThreddsNodeRefClass_GET}},
+  \code{\link{ThreddsNodeRefClass_browse}},
   \code{\link{ThreddsNodeRefClass_get_url}},
-  \code{\link{ThreddsNodeRefClass_unames}}
+  \code{\link{ThreddsNodeRefClass_unames}},
+  \code{\link{ThreddsNodeRefClass_xpath}}
 }
 \concept{Thredds}

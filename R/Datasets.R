@@ -36,7 +36,7 @@ DatasetsRefClass <- setRefClass("DatasetsRefClass",
          "show the contents"
          callSuper(prefix = prefix)
          if (is_xmlNode(.self$node) && inherits(.self, 'DatasetsRefClass')){
-            x <- xml2::xml_find_all(.self$node, ".//dataset")
+            x <- xml2::xml_find_all(.self$node, xpath = .self$xpath("dataset", prefix = ".//"))
             nm <- if (length(x) > 0)
                sapply(x, function(x) xml2::xml_attrs(x)[['name']]) else
                "NA"
@@ -62,11 +62,11 @@ DatasetsRefClass$methods(
 #' @return a list of zero or more DatasetRefClass
 NULL
 DatasetsRefClass$methods(
-   get_collection = function(xpath = ".//dataset/dataset"){
+   get_collection = function(xpath = .self$xpath(c("dataset", "dataset"), prefix = ".//")){
       if (!is_xmlNode(.self$node)) return(NULL)
       x <- .self$node %>% xml2::xml_find_all(xpath)
       x <- if (length(x) > 0){
-            lapply(x, parse_node)
+            lapply(x, parse_node, n_tries = .self$tries, verbose = .self$verbose_mode, ns = .self$xpath_ns)
         } else {
             NULL
         }

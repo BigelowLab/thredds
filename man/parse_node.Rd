@@ -4,7 +4,8 @@
 \alias{parse_node}
 \title{Convert a node to an object inheriting from ThreddsNodeRefClass}
 \usage{
-parse_node(node, url = NULL, verbose = FALSE, encoding = "UTF-8")
+parse_node(node, url = NULL, verbose = FALSE, encoding = "UTF-8",
+  ...)
 }
 \arguments{
 \item{node}{xml2::xml_node or an httr::response object}
@@ -14,6 +15,8 @@ parse_node(node, url = NULL, verbose = FALSE, encoding = "UTF-8")
 \item{verbose}{logical, by default FALSE}
 
 \item{encoding}{character, by default UTF-8}
+
+\item{...}{further arguments for instantiation of classes (such as ns = "foo")}
 }
 \value{
 ThreddsNodeRefClass object or subclass

@@ -20,12 +20,14 @@ An base representation that other nodes subclass from
 \item{\code{verbose_mode}}{logical}
 
 \item{\code{tries}}{numeric}
+
+\item{\code{ns}}{character}
 }}
 
 \section{Methods}{
 
 \describe{
-\item{\code{initialize(x, verbose = FALSE, n_tries = 3)}}{x may be url or xml2::xml_node}
+\item{\code{initialize(x, verbose = FALSE, n_tries = 3, ns = "")}}{x may be url or xml2::xml_node}
 }}
 
 \concept{Thredds2}

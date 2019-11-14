@@ -64,7 +64,7 @@ CatalogRefClass <- setRefClass("CatalogRefClass",
 NULL
 CatalogRefClass$methods(
    get_catalog = function(){
-      thredds::get_catalog(.self$url)
+      thredds::get_catalog(.self$url, n_tries = .self$tries, verbose = .self$verbose_mode, ns = .self$xpath_ns)
    })
 
 #' Retrieve the URL for a non-collection dataset

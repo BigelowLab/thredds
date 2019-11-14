@@ -22,7 +22,7 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
          callSuper(prefix = prefix)
          if (is_xmlNode(.self$node)){
             if ("dataset" %in% xml_children_names(.self$node)){
-               catalogRefs <- xml2::xml_find_all(.self$node, ".//dataset/catalogRef")
+               catalogRefs <- xml2::xml_find_all(.self$node, .self$xpath(c("dataset", "catalogRef"), prefix = ".//"))
                if (length(catalogRefs) > 0){
                   x <- sapply(catalogRefs,
                      function(x) {
@@ -40,7 +40,7 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
                   if (nx > 10) x = c(x[1:n], "...", x[(nx-n+1):nx])
                   cat(prefix, paste0("  catalogs [", nx, "]: "), paste(x, collapse = " "), "\n", sep = "")
                } #has catalogRef
-               datasets <- xml2::xml_find_all(.self$node, ".//dataset/dataset")
+               datasets <- xml2::xml_find_all(.self$node, .self$xpath(c("dataset", "dataset"), prefix = ".//"))
                if (length(datasets) > 0){
                   x <- sapply(datasets,
                      function(x) xml2::xml_attrs(x)[['name']])
@@ -49,7 +49,7 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
                   if (nx > 10) x = c(x[1:n], "...", x[(nx-n+1):nx])
                   cat(prefix, paste0("  datasets [", nx, "]: "), paste(x, collapse = " "), "\n", sep = "")
                } #has datasets (sub-datasets)
-               datasets <- xml2::xml_find_all(.self$node, ".//dataset")
+               datasets <- xml2::xml_find_all(.self$node, .self$xpath("dataset", prefix = ".//"))
                if (length(datasets) > 0){
                  x <- sapply(datasets,
                              function(x) xml2::xml_attrs(x)[['name']])
@@ -71,7 +71,7 @@ TopCatalogRefClass <- setRefClass("TopCatalogRef",
 #' @return list of zero or more character vectors
 NULL
 TopCatalogRefClass$methods(
-    list_services = function(xpath = ".//service/service"){
+    list_services = function(xpath = .self$xpath(c("service", "service"), prefix = ".//")){
 
         x <- .self$node %>%
             xml2::xml_find_all(xpath) %>%
@@ -91,7 +91,7 @@ TopCatalogRefClass$methods(
 #' @return a list of CatalogRefClass, possibly NULL
 NULL
 TopCatalogRefClass$methods(
-    get_catalogs = function(index, xpath = ".//dataset/catalogRef"){
+    get_catalogs = function(index, xpath = .self$xpath(c("dataset", "catalogRef"), prefix = ".//")){
 
         ds <- .self$node %>% xml2::xml_find_all(xpath)
 
@@ -119,7 +119,7 @@ TopCatalogRefClass$methods(
 #' @return a list of DatasetRefClass or NULL
 NULL
 TopCatalogRefClass$methods(
-    get_datasets = function(index, xpath = ".//dataset/dataset"){
+    get_datasets = function(index, xpath = .self$xpath(c("dataset", "dataset"), prefix = ".//")){
 
         ds <- .self$node %>% xml2::xml_find_all(xpath)
 
@@ -148,7 +148,7 @@ TopCatalogRefClass$methods(
 #' @return character vector
 NULL
 TopCatalogRefClass$methods(
-   get_catalog_names = function(xpath = ".//dataset/catalogRef"){
+   get_catalog_names = function(xpath = .self$xpath(c("dataset", "catalogRef"), prefix = ".//")){
 
     .self$node %>%
         xml2::xml_find_all(xpath) %>%
@@ -172,7 +172,7 @@ TopCatalogRefClass$methods(
 #' @return character vector
 NULL
 TopCatalogRefClass$methods(
-   get_dataset_names = function(xpath = ".//dataset/dataset"){
+   get_dataset_names = function(xpath = .self$xpath(c("dataset", "dataset"), prefix = ".//")){
 
     .self$node %>%
         xml2::xml_find_all(xpath) %>%
@@ -189,9 +189,9 @@ TopCatalogRefClass$methods(
 NULL
 TopCatalogRefClass$methods(
     parse_catalog_node = function(x){
-        n <- parse_node(x)
+        n <- parse_node(x, n_tries = .self$tries, verbose = .self$verbose_mode, ns = .self$xpath_ns)
         n$url <- gsub("catalog.xml", file.path(n$name, "catalog.xml"), .self$url)
-        n$verbose_mode <- .self$verbose_mode
+        #n$verbose_mode <- .self$verbose_mode
         return(n)
     })
 
@@ -205,8 +205,8 @@ TopCatalogRefClass$methods(
 NULL
 TopCatalogRefClass$methods(
     parse_dataset_node = function(x){
-        n <- parse_node(x)
+        n <- parse_node(x, n_tries = .self$tries, verbose = .self$verbose_mode, ns = .self$xpath_ns)
         n$url <- gsub("catalog.xml", n$name, .self$url)
-        n$verbose_mode <- .self$verbose_mode
+        #n$verbose_mode <- .self$verbose_mode
         return(n)
     })
