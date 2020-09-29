@@ -12,7 +12,7 @@ xml_children_names(x, unique_only = TRUE)
 \item{unique_only}{logical if TRUE remove duplicates}
 }
 \value{
-zero or more child names.  If none an empty character string is returned
+zero or more child names.
 }
 \description{
 Get the names of children

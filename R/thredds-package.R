@@ -4,6 +4,5 @@
 #'
 #' @name thredds
 #' @docType package
-#' @importFrom methods new
 #' @importFrom magrittr %>%
 NULL

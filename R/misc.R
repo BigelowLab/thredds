@@ -34,19 +34,53 @@ xmlString <- function(x){
    gsub("\n","", as.character(x))
 }
 
+#' Retrieve an ID value for a node from it's attributes.
+#'
+#' @export
+#' @param x xml node or a named character vector as per \code{xml_attrs}
+#' @param atts character, ordered vector of attribute names to use as an ID value
+#'    As the list is stepped through if an attribute is missing or empty character
+#'    then advance to the next, otherwise return that value
+#' @return character identifier, possibly an empty character (\code{character()})
+xml_id <- function(x,
+                   atts = c("name", "title", "ID", "urlPath", "href")){
+   
+   ret <- character()
+   if (is.character(x)){
+      a <- x
+   } else {
+      a <- xml2::xml_attrs(x)
+   }
+   
+   if (length(a) == 0) return(ret)
+   
+   natts <- names(a)
+   if (is.null(natts)){
+      warning("attributes must be a named character vector")
+      return(ret)
+   }
+   
+   for (att in atts){
+      if (att %in% natts && (nchar(a[[att]]) > 0)) {
+         ret <- a[[att]]
+         break
+      }
+   }
+   return(ret)
+}
 
 #' Get the names of children
 #' @export
 #' @param x xml2::xml_node
 #' @param unique_only logical if TRUE remove duplicates
-#' @return zero or more child names.  If none an empty character string is returned
+#' @return zero or more child names.
 xml_children_names <- function(x, unique_only = TRUE){
     nm <- if (is_xmlNode(x)) {
         x %>%
             xml2::xml_children() %>%
             sapply(xml2::xml_name)
     } else {
-        ""
+        character()
     }
     if (unique_only) nm <- unique(nm)
     return(nm)
@@ -89,7 +123,7 @@ get_catalog <- function(uri, ...){
    return(node)
 }
 
-#' Convert a node to an object inheriting from ThreddsNodeRefClass
+#' Convert a node to an object inheriting from ThreddsNode
 #'
 #' @export
 #' @param node xml2::xml_node or an httr::response object
@@ -97,28 +131,17 @@ get_catalog <- function(uri, ...){
 #' @param verbose logical, by default FALSE
 #' @param encoding character, by default UTF-8
 #' @param ... further arguments for instantiation of classes (such as ns = "foo")
-#' @return ThreddsNodeRefClass object or subclass
+#' @return ThreddsNode class object or subclass
 parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8', ...){
-
-   # given an 'dataset' xml2::xml_node determine if the node is a collection or
-   # direct (to data) and return the appropriate data type
-   parse_dataset <- function(x, verbose = FALSE, ...){
-      if ('dataset' %in% xml_children_names(x)){
-         r <- DatasetsRefClass$new(x, verbose = verbose, ...)
-      } else {
-         r <- DatasetRefClass$new(x, verbose = verbose, ...)
-      }
-      return(r)
-   }
 
    if (inherits(node, 'response')){
       if (httr::status_code(node) == 200){
          if (is.null(url)) url <- node$url
-         node <- httr::content(node, type = 'text/xml', encoding = 'UTF-8')
+         node <- httr::content(node, type = 'text/xml', encoding = encoding)
       } else {
          cat("response status ==",httr::status_code(node), "\n")
          cat("response url = ", node$url, "\n")
-         print(httr::content(node))
+         print(httr::content(node, encoding = encoding))
          return(NULL)
       }
    }
@@ -127,11 +150,10 @@ parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8', ..
 
    nm <- xml2::xml_name(node)[1]
    n <- switch(nm,
-       'catalog' = TopCatalogRefClass$new(node, verbose = verbose, ...),
-       'catalogRef' = CatalogRefClass$new(node, verbose = verbose, ...),
-       'service' = ServiceRefClass$new(node, verbose = verbose, ...),
-       'dataset' = parse_dataset(node, verbose = verbose, ...),
-       ThreddsNodeRefClass$new(node, verbose = verbose, ...))
+       'catalog' = CatalogNode$new(node, verbose = verbose, ...),
+       'service' = ServiceNode$new(node, verbose = verbose, ...),
+       'dataset' = DatasetNode$new(node, verbose = verbose, ...),
+       ThreddsNode$new(node, verbose = verbose, ...))
 
    if (!is.null(url)) n$url <- url
 
@@ -139,26 +161,26 @@ parse_node <- function(node, url = NULL, verbose = FALSE, encoding = 'UTF-8', ..
 }
 
 #' Build and xpath string, possibly using the user specified namespace
-#' declaration.
+#' prefix.
 #'
 #' @export
 #' @param x character one or more path segments
-#' @param prefix character either "./", ".//" or "//" or if NA or NA then ignored
-#' @param ns if "" or NA then ignored otherwise it is appended to each segment
+#' @param prefix character by default "d1" prepended to each of the segements
+#'        in \code{x}.  If NA or length is 0 then ignore.
+#' @param select charcater, by default search anywhere in the current node with ".//"
 #' @return xpath descriptor
 build_xpath <- function(x,
-  prefix = ".//",
-  ns = ""){
+                        prefix = "d1",
+                        select = ".//"){
 
-  if (!is.na(ns) && nchar(ns) >= 1){
-    x <- paste(ns, x, sep = ":")
+  has_prefix <- all(!is.null(prefix[1]), !is.na(prefix[1]),  nchar(prefix[1]) >= 1)
+  if (has_prefix){
+    x <- paste(prefix[1], x, sep = ":")
   }
-
   x <- paste(x, collapse = "/")
-
-  if (!is.na(ns) || nchar(ns) > 0){
-   x <- paste0(prefix, x)
-  }
+  
+  has_select <- all(!is.null(select[1]), !is.na(select[1]),  nchar(select[1]) >= 1)
+  if (has_select) x <- paste0(select[1], x)
 
   x
 }

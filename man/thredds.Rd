@@ -3,7 +3,6 @@
 \docType{package}
 \name{thredds}
 \alias{thredds}
-\alias{thredds-package}
 \title{thredds: A crawler for navigating THREDDS catalogs}
 \description{
 A limited crawler for programmatically navigating THREDDS catalogs.

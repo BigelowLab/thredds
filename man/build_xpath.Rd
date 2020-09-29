@@ -3,21 +3,22 @@
 \name{build_xpath}
 \alias{build_xpath}
 \title{Build and xpath string, possibly using the user specified namespace
-declaration.}
+prefix.}
 \usage{
-build_xpath(x, prefix = ".//", ns = "")
+build_xpath(x, prefix = "d1", select = ".//")
 }
 \arguments{
 \item{x}{character one or more path segments}
 
-\item{prefix}{character either "./", ".//" or "//" or if NA or NA then ignored}
+\item{prefix}{character by default "d1" prepended to each of the segements
+in \code{x}.  If NA or length is 0 then ignore.}
 
-\item{ns}{if "" or NA then ignored otherwise it is appended to each segment}
+\item{select}{charcater, by default search anywhere in the current node with ".//"}
 }
 \value{
 xpath descriptor
 }
 \description{
 Build and xpath string, possibly using the user specified namespace
-declaration.
+prefix.
 }

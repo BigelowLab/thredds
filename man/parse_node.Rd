@@ -2,10 +2,9 @@
 % Please edit documentation in R/misc.R
 \name{parse_node}
 \alias{parse_node}
-\title{Convert a node to an object inheriting from ThreddsNodeRefClass}
+\title{Convert a node to an object inheriting from ThreddsNode}
 \usage{
-parse_node(node, url = NULL, verbose = FALSE, encoding = "UTF-8",
-  ...)
+parse_node(node, url = NULL, verbose = FALSE, encoding = "UTF-8", ...)
 }
 \arguments{
 \item{node}{xml2::xml_node or an httr::response object}
@@ -19,8 +18,8 @@ parse_node(node, url = NULL, verbose = FALSE, encoding = "UTF-8",
 \item{...}{further arguments for instantiation of classes (such as ns = "foo")}
 }
 \value{
-ThreddsNodeRefClass object or subclass
+ThreddsNode class object or subclass
 }
 \description{
-Convert a node to an object inheriting from ThreddsNodeRefClass
+Convert a node to an object inheriting from ThreddsNode
 }
