@@ -11,7 +11,7 @@
 # but should be used to document which version of the schema was used.
 
 #' A class for Catalogs (which may contain catalogs references or datasets)
-#' 
+#'
 #' @description A catalog representation that sublcasses from ThreddsNode
 #' @export
 CatalogNode <- R6::R6Class("CatalogNode",
@@ -22,15 +22,15 @@ CatalogNode <- R6::R6Class("CatalogNode",
     #' @param xpath character, the xpath specifications
     #' @param form character, either "list" or "table"
     #' @return list of zero or more character vectors
-    list_services = function(xpath = build_xpath("service", 
+    list_services = function(xpath = build_xpath("service",
                                                  prefix = self$prefix),
                              form = "list"){
       x <- self$node %>%
         xml2::xml_find_all(xpath) %>%
         sapply( function(x) xml2::xml_attrs(x) , simplify = FALSE)
-      
+
       if (length(x) == 0) return(list())
-      
+
       if (tolower(form[1]) =='table'){
         x <- do.call(rbind, x) %>% as.data.frame()
       } else {
@@ -40,20 +40,20 @@ CatalogNode <- R6::R6Class("CatalogNode",
       }
       x
     },  # list_services
-     
+
     #' @description list available catalogRefs
     #' @param xpath character, the xpath descriptor
     #' @param form character, either "list" or "table"
     #' @return a list with zero or more character vectors
-    list_catalogs = function(xpath = build_xpath(c("dataset", "catalogRef"), 
+    list_catalogs = function(xpath = build_xpath(c("dataset", "catalogRef"),
                                                  prefix = self$prefix),
                              form = "list"){
       x <- self$node %>%
         xml2::xml_find_all(xpath) %>%
         sapply( function(x) xml2::xml_attrs(x) , simplify = FALSE)
-      
+
       if (length(x) == 0) return(list())
-      
+
       if (tolower(form[1]) =='table'){
         x <- do.call(rbind, x) %>% as.data.frame()
       } else {
@@ -63,20 +63,20 @@ CatalogNode <- R6::R6Class("CatalogNode",
       }
       x
     }, #list_catalogs
- 
+
     #' @description list available datasets
     #' @param xpath character, the xpath descriptor
     #' @param form character, either "list" or "table"
     #' @return a list with zero or more character vectors
-    list_datasets = function(xpath = build_xpath(c("dataset", "dataset"), 
+    list_datasets = function(xpath = build_xpath(c("dataset", "dataset"),
                                                  prefix = self$prefix),
                              form = "list"){
       x <- self$node %>%
         xml2::xml_find_all(xpath) %>%
         sapply( function(x) xml2::xml_attrs(x) , simplify = FALSE)
-      
+
       if (length(x) == 0) return(list())
-      
+
       if (tolower(form[1]) =='table'){
         x <- do.call(rbind, x) %>% as.data.frame()
       } else {
@@ -86,36 +86,46 @@ CatalogNode <- R6::R6Class("CatalogNode",
       }
       x
     }, #list_datasets
-         
+
     #' @description Retrieve a list one or more of child catalogs
     #' @param index integer index (1,...,nChild), indices or name(s)
     #' @param xpath character xpath representation
     #' @return a list of Catalog class objects, possibly NULL
-    get_catalogs = function(index, xpath = build_xpath(c("dataset", "catalogRef"), 
+    get_catalogs = function(index, xpath = build_xpath(c("dataset", "catalogRef"),
                                                        prefix = self$prefix)){
-      
+
       catalogRefs <- self$list_catalogs()
-      
+
       if (length(catalogRefs) == 0) return(NULL)
-      
+
       if (!missing(index)) catalogRefs <- catalogRefs[index]
-      
+
       if (length(catalogRefs) == 0) return(NULL)
-      
+
       nms <- names(catalogRefs[[1]])
+      parent_base <- dirname(self$url)
       if ("href" %in% nms) {
-        uri <- gsub("catalog.xml", sapply(catalogRefs, "[[", "href"), self$url, fixed = TRUE)
+        uri <- sapply(catalogRefs,
+                      function(ref) {
+                        #gsub("catalog.xml", ref[['href']], self$url, fixed = TRUE)
+                        file.path(parent_base, ref[['href']] )
+                      } )
       } else if ("urlPath" %in% nms){
-        uri <- gsub("catalog.xml", sapply(catalogRefs, "[[", "urlPath"), self$url, fixed = TRUE)
+        uri <- sapply(catalogRefs,
+                      function(ref) {
+                        #gsub("catalog.xml", ref[['urlPath']], self$url, fixed = TRUE)
+                        file.path(parent_base, ref[['urlPath']] )
+                      } )
       } else {
         if (self$verbose){
-          warning("catalogRefs lack both 'href' and 'urlPath' elements - must have at least one - returning NULL")
+          warning(paste("catalogRefs lack both 'href' and 'urlPath' elements",
+                        "- must have at least one - returning NULL"))
         }
         return(NULL)
       }
-      
-      x <- lapply(uri, function(u) CatalogNode$new(u, 
-                                                   verbose = self$verbose, 
+
+      x <- lapply(unname(uri), function(u) CatalogNode$new(u,
+                                                   verbose = self$verbose,
                                                    n_tries = self$tries,
                                                    prefix = self$prefix,
                                                    base_url = self$base_url,
@@ -123,20 +133,20 @@ CatalogNode <- R6::R6Class("CatalogNode",
       names(x) <- names(catalogRefs)
       x
     }, #get_catalogs
-     
+
     #' @description Retrieve list one or more dataset children
     #' @param index the integer index (1,...,nChild), indices or name(s)
     #' @param xpath character xpath representation
     #' @return a list of Dataset objects or NULL
-    get_datasets = function(index, xpath = build_xpath(c("dataset", "dataset"), 
+    get_datasets = function(index, xpath = build_xpath(c("dataset", "dataset"),
                                                        prefix = self$prefix)){
-      
+
       datasets <- xml2::xml_find_all(self$node, xpath)
-      
+
       if (length(datasets) == 0) return(NULL)
-      
+
       dataset_names <- sapply(datasets, xml_id)
-      
+
       if (!missing(index)) {
         if (inherits(index, 'character')){
           ix <- match(index, dataset_names)
@@ -148,9 +158,9 @@ CatalogNode <- R6::R6Class("CatalogNode",
         }
       }
       if (length(datasets) == 0) return(NULL)
-      
-      x <- lapply(datasets, function(node) DatasetNode$new(node, 
-                                               verbose = self$verbose, 
+
+      x <- lapply(datasets, function(node) DatasetNode$new(node,
+                                               verbose = self$verbose,
                                                n_tries = self$tries,
                                                prefix = self$prefix,
                                                base_url = self$base_url,
@@ -158,38 +168,38 @@ CatalogNode <- R6::R6Class("CatalogNode",
       names(x) <- dataset_names
       x
     }, # get_datasets
-    
-    
+
+
     #' @description Retrieve list zero or more dataset child names.  If unnnamed, then
     #'   we substitute "title", "ID", "urlPath", or "href" in that order of availability.
     #' @param index the integer index (1,...,nChild), indices or name(s)
     #' @param xpath character xpath representation
     #' @return character vector of zero or more names
-    get_dataset_names = function(xpath = build_xpath(c("dataset", "dataset"), 
+    get_dataset_names = function(xpath = build_xpath(c("dataset", "dataset"),
                                                      prefix = self$prefix)){
-      
+
       x <- self$list_datasets(xpath = xpath)
       if (length(x) == 0) return(character())
       return(names(x))
-          
+
     }, # get_dataset_names
-    
-    
+
+
     #' @description Retrieve list zero or more catalog child names.  If unnnamed, then
     #'   we substitute "title", "ID", "urlPath" or href" in that order of availability.
     #' @param index the integer index (1,...,nChild), indices or name(s)
     #' @param xpath character xpath representation
     #' @return character vector of zero or more names
-    get_catalog_names = function(xpath = build_xpath(c("dataset", "catalogRef"), 
+    get_catalog_names = function(xpath = build_xpath(c("dataset", "catalogRef"),
                                                      prefix = self$prefix)){
-      
+
       x <- self$list_catalogs(xpath = xpath)
       if (length(x) == 0) return(character())
       return(names(x))
-      
+
     }, # get_catalog_names
-    
-    
+
+
     #' @description Parse a catalog node
     #' @param x xml_node
     #' @return Catalog class object
@@ -200,7 +210,7 @@ CatalogNode <- R6::R6Class("CatalogNode",
       n$url <- gsub("catalog.xml", file.path(n$name, "catalog.xml"), self$url)
       return(n)
     }, #parse_catalog_node
-    
+
     #' @description Parse a dataset node
     #' @param x xml_node
     #' @return Dataset class object
@@ -211,7 +221,7 @@ CatalogNode <- R6::R6Class("CatalogNode",
       n$url <- gsub("catalog.xml", n$name, self$url)
       return(n)
     }, #parse_dataset_node
-    
+
     #' @description print method
     #' @param prefix character, to be printed before each line of output (like spaces)
     #' @param ... other arguments for superclass
@@ -226,10 +236,10 @@ CatalogNode <- R6::R6Class("CatalogNode",
            } else {
              x = "none"
            }
-           cat(prefix, paste0("  services [", length(services), "]: "), 
+           cat(prefix, paste0("  services [", length(services), "]: "),
                paste(x, collapse = " "), "\n", sep = "")
          }
-         
+
          if ("dataset" %in% child_names){
            catalogs <- self$list_catalogs()
            if (length(catalogs) > 0){
@@ -241,9 +251,9 @@ CatalogNode <- R6::R6Class("CatalogNode",
              nx <- 0
              x <- "none"
            }
-           cat(prefix, paste0("  catalogRefs [", nx, "]: "), 
+           cat(prefix, paste0("  catalogRefs [", nx, "]: "),
                paste(x, collapse = " "), "\n", sep = "")
-           
+
            datasets <- self$list_datasets()
            if (length(datasets)> 0){
              x <- names(datasets)
@@ -254,10 +264,10 @@ CatalogNode <- R6::R6Class("CatalogNode",
              nx <- 0
              x <- "none"
            }
-           cat(prefix, paste0("  datasets [", nx, "]: "), 
+           cat(prefix, paste0("  datasets [", nx, "]: "),
                paste(x, collapse = " "), "\n", sep = "")
         } # has datasets
-            
+
        } #is_xmlNode
     })
   )

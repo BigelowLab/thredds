@@ -1,5 +1,5 @@
 #' A base representation that other nodes subclass from
-#' 
+#'
 #' @description R6 base class for all other to inherit from
 #' @export
 ThreddsNode <- R6::R6Class("ThreddsNode",
@@ -18,7 +18,7 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
       encoding = NULL,
       #' @field base_url character, the base URL for the service
       base_url = NULL,
-      
+
 
       #' @description initialize an instance of ThreddsNode
       #' @param x url or xml2::xml_node
@@ -28,7 +28,7 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
       #' @param ns_strip logical, if TRUE then strip namespace (default FALSE)
       #' @param encoding character, by default 'UTF-8'
       #' @param base_url character, the base URL for the service
-      initialize = function(x, verbose = FALSE, n_tries = 3, prefix = "d1", 
+      initialize = function(x, verbose = FALSE, n_tries = 3, prefix = "d1",
                             ns_strip = FALSE, encoding = "UTF-8",
                             base_url = ""){
          self$url <- 'none'
@@ -36,7 +36,7 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
          self$tries <- n_tries[1]
          self$prefix <- prefix[1]
          self$encoding <- encoding[1]
-         self$base_url <- ""
+         self$base_url <- base_url[1]
          if (!missing(x)){
             if (is_xmlNode(x)) {
                self$node <- x
@@ -44,17 +44,17 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
                r <- try(httr::GET(x))
                if (inherits(r, "try-error")){
                   warning("unable to GET:", x)
-               } else {         
+               } else {
                   if (httr::status_code(r) == 200){
-                     self$node <- try(httr::content(r,  
-                                                    type = 'text/xml', 
+                     self$node <- try(httr::content(r,
+                                                    type = 'text/xml',
                                                     encoding = self$encoding))
                      if (inherits(self$node, "try-error")){
                         warning("unable to extract http content to XML")
                      } else {
                         if (ns_strip){
-                           xml2::xml_ns_strip(self$node) 
-                        } 
+                           xml2::xml_ns_strip(self$node)
+                        }
                      }
                   }
                }
@@ -69,17 +69,17 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
       print = function(prefix = "", ...){
          cat(prefix, class(self)[1]," (R6): \n", sep = "")
          s <- sprintf("  verbose: %s    tries: %i    namespace prefix: %s",
-                      as.character(self$verbose), 
+                      as.character(self$verbose),
                       self$tries,
                       self$prefix)
          cat(prefix, s, "\n", sep = "")
          cat(prefix, "  url: ", self$url, "\n", sep = "")
          #if (is_xmlNode(self$node)) {
-         #   cat(prefix, "  children: ", 
+         #   cat(prefix, "  children: ",
          #       paste(self$children_names(), collapse = " "), "\n", sep = "")
          #}
       },
-      
+
       #' @description
       #' Retrieve a node of the contents at this nodes URL
       #'
@@ -107,19 +107,19 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
                i <- i + 1
             } else {
                if (i > 1) cat(sprintf("  whew!  attempt %i successful\n", i))
-               r <- parse_node(r, 
-                               prefix = self$prefix, 
-                               verbose = self$verbose, 
+               r <- parse_node(r,
+                               prefix = self$prefix,
+                               verbose = self$verbose,
                                n_tries = self$tries)
                break
             }
          }
          return(r)
       },
-      
+
       #' @description Browse the URL if possible
       browse = function(){
-         
+
          if (interactive() &&
              !is.na(self$url) &&
              nchar(self$url) > 0 &&
@@ -130,14 +130,14 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
          }
          invisible(NULL)
       },
-      
+
       #' @description Retrieve a vector of unique child names
       #' @param ... further arguments for \code{\link{xml_children_names}}
       #' @return a vector of zero or more child names
       children_names = function(...){
         xml_children_names(self$node, ...)
       }
-      
+
    ) # end public
 
    ) # end of class definition
