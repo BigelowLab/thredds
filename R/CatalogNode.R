@@ -98,7 +98,10 @@ CatalogNode <- R6::R6Class("CatalogNode",
 
       if (length(catalogRefs) == 0) return(NULL)
 
-      if (!missing(index)) catalogRefs <- catalogRefs[index]
+      if (!missing(index)) {
+        ix <- match(index, names(catalogRefs))
+        catalogRefs <- catalogRefs[ix[!is.na(ix)]]
+      }
 
       if (length(catalogRefs) == 0) return(NULL)
 
@@ -150,6 +153,7 @@ CatalogNode <- R6::R6Class("CatalogNode",
       if (!missing(index)) {
         if (inherits(index, 'character')){
           ix <- match(index, dataset_names)
+          ix <- ix[!is.na(ix)]
           datasets <- datasets[ix]
           dataset_names <- dataset_names[ix]
         } else {
