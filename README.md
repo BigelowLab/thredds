@@ -37,7 +37,6 @@ library(devtools)
 install_github("BigelowLab/thredds")
 ```
 
-
 #### An example from [OBPG](https://oceancolor.gsfc.nasa.gov/)
 
 Start with this [page](https://oceandata.sci.gsfc.nasa.gov/opendap/) and it's [XML companion](https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml). We find a top level
