@@ -24,17 +24,17 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
       #' @param x url or xml2::xml_node
       #' @param verbose logical, TRUE to be noisy (default FALSE)
       #' @param n_tries numeric, defaults to 3
-      #' @param prefix character, the namespace to examine
+      #' @param prefix character, the namespace to examine (default NULL, inherited when initialized)
       #' @param ns_strip logical, if TRUE then strip namespace (default FALSE)
       #' @param encoding character, by default 'UTF-8'
       #' @param base_url character, the base URL for the service
-      initialize = function(x, verbose = FALSE, n_tries = 3, prefix = "d1",
+      initialize = function(x, verbose = FALSE, n_tries = 3, prefix = NULL,
                             ns_strip = FALSE, encoding = "UTF-8",
                             base_url = ""){
          self$url <- 'none'
          self$verbose <- verbose[1]
          self$tries <- n_tries[1]
-         self$prefix <- prefix[1]
+         if(!is.null(prefix)) self$prefix <- prefix[1]
          self$encoding <- encoding[1]
          self$base_url <- base_url[1]
          if (!missing(x)){
@@ -55,6 +55,9 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
                         if (ns_strip){
                            xml2::xml_ns_strip(self$node)
                         }
+                        #inherit thredds namespace
+                        ns = as.list(xml2::xml_ns(self$node))
+                        self$prefix = names(ns)[ns == "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"]
                      }
                   }
                }
