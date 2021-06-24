@@ -31,7 +31,6 @@ is based upon [xml2](https://CRAN.R-project.org/package=xml2), and uses
 #### Installation
 
 It is easy to install with [devtools](https://CRAN.R-project.org/package=devtools)
-
 ```R
 library(devtools)
 install_github("BigelowLab/thredds")
