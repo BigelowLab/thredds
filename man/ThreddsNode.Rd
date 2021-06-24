@@ -46,7 +46,7 @@ initialize an instance of ThreddsNode
   x,
   verbose = FALSE,
   n_tries = 3,
-  prefix = "d1",
+  prefix = NULL,
   ns_strip = FALSE,
   encoding = "UTF-8",
   base_url = ""
@@ -62,7 +62,7 @@ initialize an instance of ThreddsNode
 
 \item{\code{n_tries}}{numeric, defaults to 3}
 
-\item{\code{prefix}}{character, the namespace to examine}
+\item{\code{prefix}}{character, the namespace to examine (default NULL, inherited when initialized)}
 
 \item{\code{ns_strip}}{logical, if TRUE then strip namespace (default FALSE)}
 
