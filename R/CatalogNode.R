@@ -74,7 +74,7 @@ CatalogNode <- R6::R6Class("CatalogNode",
       x <- self$node %>%
         xml2::xml_find_all(xpath) %>%
         sapply( function(x) xml2::xml_attrs(x) , simplify = FALSE)
-      
+
       xpath_dataset_flat <- build_xpath(c("dataset"),prefix = self$prefix)
       if(length(x) == 0 && xpath != xpath_dataset_flat){
         #we try to look for non-nested datasets
@@ -99,10 +99,9 @@ CatalogNode <- R6::R6Class("CatalogNode",
     #' @param index integer index (1,...,nChild), indices or name(s)
     #' @param xpath character xpath representation
     #' @return a list of Catalog class objects, possibly NULL
-    get_catalogs = function(index, xpath = build_xpath(c("dataset", "catalogRef"),
-                                                       prefix = self$prefix)){
+    get_catalogs = function(index, xpath = build_xpath(c("dataset", "catalogRef"), prefix = self$prefix)){
 
-      catalogRefs <- self$list_catalogs()
+      catalogRefs <- self$list_catalogs(xpath)
 
       if (length(catalogRefs) == 0) return(NULL)
 
@@ -153,7 +152,7 @@ CatalogNode <- R6::R6Class("CatalogNode",
                                                        prefix = self$prefix)){
 
       datasets <- xml2::xml_find_all(self$node, xpath)
-      
+
       xpath_dataset_flat <- build_xpath(c("dataset"),prefix = self$prefix)
       if(length(datasets) == 0 && xpath != xpath_dataset_flat) {
         #we try to look for non-nested datasets

@@ -40,6 +40,12 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
          if (!missing(x)){
             if (is_xmlNode(x)) {
                self$node <- x
+               if (ns_strip){
+                  xml2::xml_ns_strip(self$node)
+               }
+               #inherit thredds namespace
+               ns <- as.list(xml2::xml_ns(self$node))
+               self$prefix <- names(ns)[ns == "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"]
             } else if (is.character(x)) {
                r <- try(httr::GET(x))
                if (inherits(r, "try-error")){
@@ -56,8 +62,8 @@ ThreddsNode <- R6::R6Class("ThreddsNode",
                            xml2::xml_ns_strip(self$node)
                         }
                         #inherit thredds namespace
-                        ns = as.list(xml2::xml_ns(self$node))
-                        self$prefix = names(ns)[ns == "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"]
+                        ns <- as.list(xml2::xml_ns(self$node))
+                        self$prefix <- names(ns)[ns == "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0"]
                      }
                   }
                }
