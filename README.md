@@ -1,5 +1,9 @@
 #### thredds: THREDDS Crawler for R using xml2 package
 
+[![Build Status](https://github.com/BigelowLab/thredds/actions/workflows/r-cmd-check.yml/badge.svg?branch=master)](https://github.com/BigelowLab/thredds/actions/workflows/r-cmd-check.yml)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/thredds)](https://cran.r-project.org/package=thredds)
+[![Github_Status_Badge](https://img.shields.io/badge/Github-0.2-blue.svg)](https://github.com/BigelowLab/thredds)
+
 [THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html) catalogs
 are well described.  This package provides only client-side functionality where the user provides
 prior knowledge about how the catalog is organized, as on the server side the provider has some 
