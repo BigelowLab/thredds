@@ -12,7 +12,7 @@ Imports:
     magrittr,
     httr,
     xml2
-Suggests: ncdf4
+Suggests: ncdf4, testthat
 Maintainer: Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 Authors@R: c(
   person("Ben", "Tupper", role = c("aut", "cre"), email = "btupper@bigelow.org", comment = c(ORCID = "")),
