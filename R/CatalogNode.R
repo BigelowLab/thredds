@@ -13,6 +13,13 @@
 #' A class for Catalogs (which may contain catalogs references or datasets)
 #'
 #' @description A catalog representation that sublcasses from ThreddsNode
+#' 
+#' @examples
+#'   library(thredds)
+#'   top_uri <- 'https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml'
+#'   Top <- thredds::CatalogNode$new(top_uri)
+#'   Top$browse()
+#' 
 #' @export
 CatalogNode <- R6::R6Class("CatalogNode",
   inherit = ThreddsNode,
