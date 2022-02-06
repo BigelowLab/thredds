@@ -6,6 +6,9 @@
 \description{
 R6 base class for all other to inherit from
 }
+\note{
+Abstract class
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{

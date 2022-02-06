@@ -1,6 +1,9 @@
 #' A base representation that other nodes subclass from
 #'
 #' @description R6 base class for all other to inherit from
+#' 
+#' @note Abstract class
+#' 
 #' @export
 ThreddsNode <- R6::R6Class("ThreddsNode",
    public = list(

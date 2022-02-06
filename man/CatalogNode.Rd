@@ -6,6 +6,13 @@
 \description{
 A catalog representation that sublcasses from ThreddsNode
 }
+\examples{
+  library(thredds)
+  top_uri <- 'https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml'
+  Top <- thredds::CatalogNode$new(top_uri)
+  Top$browse()
+
+}
 \section{Super class}{
 \code{\link[thredds:ThreddsNode]{thredds::ThreddsNode}} -> \code{CatalogNode}
 }
