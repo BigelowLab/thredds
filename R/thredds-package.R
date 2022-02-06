@@ -4,5 +4,8 @@
 #'
 #' @name thredds
 #' @docType package
+#' @import R6
+#' @import rlang
+#' @import httr
 #' @importFrom magrittr %>%
 NULL

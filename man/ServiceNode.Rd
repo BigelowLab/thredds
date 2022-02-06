@@ -31,9 +31,9 @@ A Service representation that subclasses from ThreddsNode
 \if{html}{
 \out{<details open ><summary>Inherited methods</summary>}
 \itemize{
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="GET">}\href{../../thredds/html/ThreddsNode.html#method-GET}{\code{thredds::ThreddsNode$GET()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="browse">}\href{../../thredds/html/ThreddsNode.html#method-browse}{\code{thredds::ThreddsNode$browse()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="children_names">}\href{../../thredds/html/ThreddsNode.html#method-children_names}{\code{thredds::ThreddsNode$children_names()}}\out{</span>}
+\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="GET">}\href{../../thredds/html/ThreddsNode.html#method-GET}{\code{thredds::ThreddsNode$GET()}}\out{</span>}
 }
 \out{</details>}
 }
