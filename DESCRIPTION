@@ -1,6 +1,6 @@
 Package: thredds
 Title: Crawler for Navigating THREDDS Catalogs
-Description: Provides a crawler for programmatically navigating THREDDS Data Server ((<https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html>)) 
+Description: Provides a crawler for programmatically navigating THREDDS Data Server (<https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html>) 
   catalogs, and access dataset metadata and resources.
 Version: 0.1
 Date: 2022-02-06
@@ -15,7 +15,7 @@ Imports:
 Suggests: ncdf4, testthat
 Maintainer: Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 Authors@R: c(
-  person("Ben", "Tupper", role = c("aut", "cre"), email = "btupper@bigelow.org", comment = c(ORCID = "")),
+  person("Ben", "Tupper", role = c("aut", "cre"), email = "btupper@bigelow.org"),
   person("Emmanuel", "Blondel", role = c("aut"), email = "emmanuel.blondel1@gmail.com", comment = c(ORCID = "0000-0002-5870-5762")))
 URL: https://github.com/BigelowLab/thredds, https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html
 License: MIT + file LICENSE
