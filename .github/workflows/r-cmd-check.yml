@@ -17,9 +17,10 @@ jobs:
     name: R ${{ matrix.config.r }} | ${{ matrix.config.os }}
     runs-on: ${{ matrix.config.os }}
     strategy:
+      fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-20.04,  r: '4.0.5', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest"}
+          - {os: ubuntu-20.04,  r: 'release'}
     
     steps:
       - uses: actions/checkout@v2
