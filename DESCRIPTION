@@ -15,8 +15,8 @@ Imports:
 Suggests: ncdf4, testthat
 Maintainer: Emmanuel Blondel <emmanuel.blondel1@gmail.com>
 Authors@R: c(
-  person("Ben", "Tupper", role = c("aut", "cre"), email = "btupper@bigelow.org"),
-  person("Emmanuel", "Blondel", role = c("aut"), email = "emmanuel.blondel1@gmail.com", comment = c(ORCID = "0000-0002-5870-5762")))
+  person("Ben", "Tupper", role = c("aut"), email = "btupper@bigelow.org"),
+  person("Emmanuel", "Blondel", role = c("aut", "cre"), email = "emmanuel.blondel1@gmail.com", comment = c(ORCID = "0000-0002-5870-5762")))
 URL: https://github.com/BigelowLab/thredds, https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html
 License: MIT + file LICENSE
 Encoding: UTF-8
