@@ -7,6 +7,7 @@
 A catalog representation that sublcasses from ThreddsNode
 }
 \examples{
+ \donttest{
   library(thredds)
   top_uri <- 'https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml'
   Top <- thredds::CatalogNode$new(top_uri)
@@ -33,6 +34,7 @@ A catalog representation that sublcasses from ThreddsNode
     uri <- paste0(base_uri, chl$url)
     NC <- ncdf4::nc_open(uri)
   }
+ }
 
 }
 \section{Super class}{
