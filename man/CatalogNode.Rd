@@ -11,6 +11,28 @@ A catalog representation that sublcasses from ThreddsNode
   top_uri <- 'https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml'
   Top <- thredds::CatalogNode$new(top_uri)
   Top$browse()
+  
+  #go down in 'MODISA' catalog
+  L3 <- Top$get_catalogs("MODISA")[["MODISA"]]$get_catalogs()[[1]]
+  
+  #see what's available for 2009
+  catalog2009 <- L3$get_catalogs("2009")[[1]]
+  
+  #get catalog for 2009-01-20 
+  doy <- format(as.Date("2009-01-20"), "\%j")
+  catalog20 <- catalog2009$get_catalogs(doy)[[doy]]
+  
+  #get dataset node
+  chl <- catalog20$get_datasets("A2009020.L3m_DAY_CHL_chlor_a_9km.nc")[[1]]
+  
+  #retrieve the relative URL, and add it to the base URL for the service.
+  #Somewhat awkwardly, the relative URL comes prepended with a path separator, so we 
+  #use straight up `paste0` to append to the base_uri.
+  if(require("ncdf4")){
+    base_uri <- "https://oceandata.sci.gsfc.nasa.gov:443/opendap"
+    uri <- paste0(base_uri, chl$url)
+    NC <- ncdf4::nc_open(uri)
+  }
 
 }
 \section{Super class}{

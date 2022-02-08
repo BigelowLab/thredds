@@ -1,5 +1,7 @@
 #' A simple class for parsing and holdoing service info
-#' 
+#'
+#' @note For examples see \link{CatalogNode}
+#'
 #' @description A Service representation that subclasses from ThreddsNode
 #' @export
 ServiceNode <- R6::R6Class("ServiceNode",

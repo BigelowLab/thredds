@@ -2,7 +2,7 @@
 #'
 #' @description R6 base class for all other to inherit from
 #' 
-#' @note Abstract class
+#' @note Abstract class. For examples see \link{CatalogNode}
 #' 
 #' @export
 ThreddsNode <- R6::R6Class("ThreddsNode",

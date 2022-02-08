@@ -6,6 +6,9 @@
 \description{
 A Service representation that subclasses from ThreddsNode
 }
+\note{
+For examples see \link{CatalogNode}
+}
 \section{Super class}{
 \code{\link[thredds:ThreddsNode]{thredds::ThreddsNode}} -> \code{ServiceNode}
 }

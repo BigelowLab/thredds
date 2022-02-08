@@ -9,6 +9,8 @@
 
 
 #' A class for a single datatset reference
+#' 
+#' @note For examples see \link{CatalogNode}
 #'
 #' @description A direct Dataset representation that subclasses from ThreddsNode
 #' @export
