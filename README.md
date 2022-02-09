@@ -247,15 +247,14 @@ If we know the URL for the base service, then we append the relative URL to that
 
 ```
 base_uri <- 'https://opendap.co-ops.nos.noaa.gov/thredds/dodsC'
-nowcast_uri <- file.path(base_uri, 
-                           nowcast[['nos.gomofs.stations.nowcast.20200928.t06z.nc']]$url)
+nowcast_uri <- file.path(base_uri, nowcast[['nos.gomofs.stations.nowcast.20200928.t06z.nc']]$url)
 NC <- ncdf4::nc_open(nowcast_uri)
 ```
 
 
 ### Note on searching within a prefixed namespace
 
-A given implementation of a THREDDS catalog system may rely upon an [XML namespace](https://en.wikipedia.org/wiki/XML_namespace) with a prefix. We have encountered these: [d1](https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.xml), another [d1](https://thredds.daac.ornl.gov/thredds/catalog/ornldaac/1328/catalog.xml) and [thredds](https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml).
+A given implementation of a THREDDS catalog system may rely upon an [XML namespace](https://en.wikipedia.org/wiki/XML_namespace) with a prefix. We have encountered these: [d1](https://opendap.co-ops.nos.noaa.gov/thredds/catalog/NOAA/GOMOFS/MODELS/catalog.xml) and [thredds](https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml).
 
 
 ```
