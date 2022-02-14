@@ -2,8 +2,8 @@ Package: thredds
 Title: Crawler for Navigating THREDDS Catalogs
 Description: Provides a crawler for programmatically navigating THREDDS Data Server (<https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html>) 
   catalogs, and access dataset metadata and resources.
-Version: 0.1
-Date: 2022-02-09
+Version: 0.1-1
+Date: 2022-02-14
 Depends:
     R (>= 3.0)
 Imports:

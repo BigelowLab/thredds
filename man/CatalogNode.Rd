@@ -29,11 +29,11 @@ A catalog representation that sublcasses from ThreddsNode
   #retrieve the relative URL, and add it to the base URL for the service.
   #Somewhat awkwardly, the relative URL comes prepended with a path separator, so we 
   #use straight up `paste0` to append to the base_uri.
-  if(require("ncdf4")){
-    base_uri <- "https://oceandata.sci.gsfc.nasa.gov:443/opendap"
-    uri <- paste0(base_uri, chl$url)
-    NC <- ncdf4::nc_open(uri)
-  }
+  #if(require("ncdf4")){
+  #  base_uri <- "https://oceandata.sci.gsfc.nasa.gov:443/opendap"
+  #  uri <- paste0(base_uri, chl$url)
+  #  NC <- ncdf4::nc_open(uri)
+  #}
  }
 
 }
