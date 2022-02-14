@@ -2,7 +2,9 @@
 
 [![Build Status](https://github.com/BigelowLab/thredds/actions/workflows/r-cmd-check.yml/badge.svg?branch=master)](https://github.com/BigelowLab/thredds/actions/workflows/r-cmd-check.yml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/thredds)](https://cran.r-project.org/package=thredds)
+[![cran checks](https://cranchecks.info/badges/worst/thredds)](https://cran.r-project.org/web/checks/check_results_thredds.html)
 [![Github_Status_Badge](https://img.shields.io/badge/Github-0.1--1-blue.svg)](https://github.com/BigelowLab/thredds)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6027224.svg)](https://doi.org/10.5281/zenodo.6027224)
 
 [THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html) catalogs
 are well described.  This package provides only client-side functionality where the user provides
