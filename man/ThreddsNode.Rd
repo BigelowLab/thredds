@@ -31,17 +31,17 @@ Abstract class. For examples see \link{CatalogNode}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ThreddsNode$new()}}
-\item \href{#method-print}{\code{ThreddsNode$print()}}
-\item \href{#method-GET}{\code{ThreddsNode$GET()}}
-\item \href{#method-browse}{\code{ThreddsNode$browse()}}
-\item \href{#method-children_names}{\code{ThreddsNode$children_names()}}
-\item \href{#method-clone}{\code{ThreddsNode$clone()}}
+\item \href{#method-ThreddsNode-new}{\code{ThreddsNode$new()}}
+\item \href{#method-ThreddsNode-print}{\code{ThreddsNode$print()}}
+\item \href{#method-ThreddsNode-GET}{\code{ThreddsNode$GET()}}
+\item \href{#method-ThreddsNode-browse}{\code{ThreddsNode$browse()}}
+\item \href{#method-ThreddsNode-children_names}{\code{ThreddsNode$children_names()}}
+\item \href{#method-ThreddsNode-clone}{\code{ThreddsNode$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ThreddsNode-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreddsNode-new}{}}}
 \subsection{Method \code{new()}}{
 initialize an instance of ThreddsNode
 \subsection{Usage}{
@@ -77,8 +77,8 @@ initialize an instance of ThreddsNode
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-ThreddsNode-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreddsNode-print}{}}}
 \subsection{Method \code{print()}}{
 print method
 \subsection{Usage}{
@@ -96,8 +96,8 @@ print method
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-GET"></a>}}
-\if{latex}{\out{\hypertarget{method-GET}{}}}
+\if{html}{\out{<a id="method-ThreddsNode-GET"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreddsNode-GET}{}}}
 \subsection{Method \code{GET()}}{
 Retrieve a node of the contents at this nodes URL
 \subsection{Usage}{
@@ -109,8 +109,8 @@ ThreddsNode or subclass or NULL
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-browse"></a>}}
-\if{latex}{\out{\hypertarget{method-browse}{}}}
+\if{html}{\out{<a id="method-ThreddsNode-browse"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreddsNode-browse}{}}}
 \subsection{Method \code{browse()}}{
 Browse the URL if possible
 \subsection{Usage}{
@@ -119,8 +119,8 @@ Browse the URL if possible
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-children_names"></a>}}
-\if{latex}{\out{\hypertarget{method-children_names}{}}}
+\if{html}{\out{<a id="method-ThreddsNode-children_names"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreddsNode-children_names}{}}}
 \subsection{Method \code{children_names()}}{
 Retrieve a vector of unique child names
 \subsection{Usage}{
@@ -139,8 +139,8 @@ a vector of zero or more child names
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ThreddsNode-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreddsNode-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

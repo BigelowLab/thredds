@@ -43,32 +43,32 @@ A catalog representation that sublcasses from ThreddsNode
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-list_services}{\code{CatalogNode$list_services()}}
-\item \href{#method-list_catalogs}{\code{CatalogNode$list_catalogs()}}
-\item \href{#method-list_datasets}{\code{CatalogNode$list_datasets()}}
-\item \href{#method-get_catalogs}{\code{CatalogNode$get_catalogs()}}
-\item \href{#method-get_datasets}{\code{CatalogNode$get_datasets()}}
-\item \href{#method-get_dataset_names}{\code{CatalogNode$get_dataset_names()}}
-\item \href{#method-get_catalog_names}{\code{CatalogNode$get_catalog_names()}}
-\item \href{#method-parse_catalog_node}{\code{CatalogNode$parse_catalog_node()}}
-\item \href{#method-parse_dataset_node}{\code{CatalogNode$parse_dataset_node()}}
-\item \href{#method-print}{\code{CatalogNode$print()}}
-\item \href{#method-clone}{\code{CatalogNode$clone()}}
+\item \href{#method-CatalogNode-list_services}{\code{CatalogNode$list_services()}}
+\item \href{#method-CatalogNode-list_catalogs}{\code{CatalogNode$list_catalogs()}}
+\item \href{#method-CatalogNode-list_datasets}{\code{CatalogNode$list_datasets()}}
+\item \href{#method-CatalogNode-get_catalogs}{\code{CatalogNode$get_catalogs()}}
+\item \href{#method-CatalogNode-get_datasets}{\code{CatalogNode$get_datasets()}}
+\item \href{#method-CatalogNode-get_dataset_names}{\code{CatalogNode$get_dataset_names()}}
+\item \href{#method-CatalogNode-get_catalog_names}{\code{CatalogNode$get_catalog_names()}}
+\item \href{#method-CatalogNode-parse_catalog_node}{\code{CatalogNode$parse_catalog_node()}}
+\item \href{#method-CatalogNode-parse_dataset_node}{\code{CatalogNode$parse_dataset_node()}}
+\item \href{#method-CatalogNode-print}{\code{CatalogNode$print()}}
+\item \href{#method-CatalogNode-clone}{\code{CatalogNode$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="browse">}\href{../../thredds/html/ThreddsNode.html#method-browse}{\code{thredds::ThreddsNode$browse()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="children_names">}\href{../../thredds/html/ThreddsNode.html#method-children_names}{\code{thredds::ThreddsNode$children_names()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="GET">}\href{../../thredds/html/ThreddsNode.html#method-GET}{\code{thredds::ThreddsNode$GET()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="initialize">}\href{../../thredds/html/ThreddsNode.html#method-initialize}{\code{thredds::ThreddsNode$initialize()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="GET"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-GET'><code>thredds::ThreddsNode$GET()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="browse"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-browse'><code>thredds::ThreddsNode$browse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="children_names"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-children_names'><code>thredds::ThreddsNode$children_names()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="initialize"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-initialize'><code>thredds::ThreddsNode$initialize()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-list_services"></a>}}
-\if{latex}{\out{\hypertarget{method-list_services}{}}}
+\if{html}{\out{<a id="method-CatalogNode-list_services"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-list_services}{}}}
 \subsection{Method \code{list_services()}}{
 list available services
 \subsection{Usage}{
@@ -92,8 +92,8 @@ list of zero or more character vectors
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-list_catalogs"></a>}}
-\if{latex}{\out{\hypertarget{method-list_catalogs}{}}}
+\if{html}{\out{<a id="method-CatalogNode-list_catalogs"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-list_catalogs}{}}}
 \subsection{Method \code{list_catalogs()}}{
 list available catalogRefs
 \subsection{Usage}{
@@ -117,8 +117,8 @@ a list with zero or more character vectors
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-list_datasets"></a>}}
-\if{latex}{\out{\hypertarget{method-list_datasets}{}}}
+\if{html}{\out{<a id="method-CatalogNode-list_datasets"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-list_datasets}{}}}
 \subsection{Method \code{list_datasets()}}{
 list available datasets
 \subsection{Usage}{
@@ -142,8 +142,8 @@ a list with zero or more character vectors
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_catalogs"></a>}}
-\if{latex}{\out{\hypertarget{method-get_catalogs}{}}}
+\if{html}{\out{<a id="method-CatalogNode-get_catalogs"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-get_catalogs}{}}}
 \subsection{Method \code{get_catalogs()}}{
 Retrieve a list one or more of child catalogs
 \subsection{Usage}{
@@ -167,8 +167,8 @@ a list of Catalog class objects, possibly NULL
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_datasets"></a>}}
-\if{latex}{\out{\hypertarget{method-get_datasets}{}}}
+\if{html}{\out{<a id="method-CatalogNode-get_datasets"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-get_datasets}{}}}
 \subsection{Method \code{get_datasets()}}{
 Retrieve list one or more dataset children
 \subsection{Usage}{
@@ -192,8 +192,8 @@ a list of Dataset objects or NULL
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_dataset_names"></a>}}
-\if{latex}{\out{\hypertarget{method-get_dataset_names}{}}}
+\if{html}{\out{<a id="method-CatalogNode-get_dataset_names"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-get_dataset_names}{}}}
 \subsection{Method \code{get_dataset_names()}}{
 Retrieve list zero or more dataset child names.  If unnnamed, then
   we substitute "title", "ID", "urlPath", or "href" in that order of availability.
@@ -217,8 +217,8 @@ character vector of zero or more names
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_catalog_names"></a>}}
-\if{latex}{\out{\hypertarget{method-get_catalog_names}{}}}
+\if{html}{\out{<a id="method-CatalogNode-get_catalog_names"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-get_catalog_names}{}}}
 \subsection{Method \code{get_catalog_names()}}{
 Retrieve list zero or more catalog child names.  If unnnamed, then
   we substitute "title", "ID", "urlPath" or href" in that order of availability.
@@ -242,8 +242,8 @@ character vector of zero or more names
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parse_catalog_node"></a>}}
-\if{latex}{\out{\hypertarget{method-parse_catalog_node}{}}}
+\if{html}{\out{<a id="method-CatalogNode-parse_catalog_node"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-parse_catalog_node}{}}}
 \subsection{Method \code{parse_catalog_node()}}{
 Parse a catalog node
 \subsection{Usage}{
@@ -262,8 +262,8 @@ Catalog class object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-parse_dataset_node"></a>}}
-\if{latex}{\out{\hypertarget{method-parse_dataset_node}{}}}
+\if{html}{\out{<a id="method-CatalogNode-parse_dataset_node"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-parse_dataset_node}{}}}
 \subsection{Method \code{parse_dataset_node()}}{
 Parse a dataset node
 \subsection{Usage}{
@@ -282,8 +282,8 @@ Dataset class object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-CatalogNode-print"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-print}{}}}
 \subsection{Method \code{print()}}{
 print method
 \subsection{Usage}{
@@ -301,8 +301,8 @@ print method
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-CatalogNode-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CatalogNode-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

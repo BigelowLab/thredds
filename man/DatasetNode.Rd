@@ -26,25 +26,25 @@ For examples see \link{CatalogNode}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{DatasetNode$new()}}
-\item \href{#method-GET}{\code{DatasetNode$GET()}}
-\item \href{#method-get_url}{\code{DatasetNode$get_url()}}
-\item \href{#method-list_access}{\code{DatasetNode$list_access()}}
-\item \href{#method-print}{\code{DatasetNode$print()}}
-\item \href{#method-clone}{\code{DatasetNode$clone()}}
+\item \href{#method-DatasetNode-new}{\code{DatasetNode$new()}}
+\item \href{#method-DatasetNode-GET}{\code{DatasetNode$GET()}}
+\item \href{#method-DatasetNode-get_url}{\code{DatasetNode$get_url()}}
+\item \href{#method-DatasetNode-list_access}{\code{DatasetNode$list_access()}}
+\item \href{#method-DatasetNode-print}{\code{DatasetNode$print()}}
+\item \href{#method-DatasetNode-clone}{\code{DatasetNode$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="browse">}\href{../../thredds/html/ThreddsNode.html#method-browse}{\code{thredds::ThreddsNode$browse()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="children_names">}\href{../../thredds/html/ThreddsNode.html#method-children_names}{\code{thredds::ThreddsNode$children_names()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="browse"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-browse'><code>thredds::ThreddsNode$browse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="children_names"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-children_names'><code>thredds::ThreddsNode$children_names()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DatasetNode-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetNode-new}{}}}
 \subsection{Method \code{new()}}{
 initialize an instance of ServiceNode
 \subsection{Usage}{
@@ -62,8 +62,8 @@ initialize an instance of ServiceNode
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-GET"></a>}}
-\if{latex}{\out{\hypertarget{method-GET}{}}}
+\if{html}{\out{<a id="method-DatasetNode-GET"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetNode-GET}{}}}
 \subsection{Method \code{GET()}}{
 Overrides the GET method of the superclass.  GET is not permitted
 \subsection{Usage}{
@@ -75,8 +75,8 @@ NULL
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_url"></a>}}
-\if{latex}{\out{\hypertarget{method-get_url}{}}}
+\if{html}{\out{<a id="method-DatasetNode-get_url"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetNode-get_url}{}}}
 \subsection{Method \code{get_url()}}{
 Retrieve the relative URL for a dataset.
 \subsection{Usage}{
@@ -104,8 +104,8 @@ character
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-list_access"></a>}}
-\if{latex}{\out{\hypertarget{method-list_access}{}}}
+\if{html}{\out{<a id="method-DatasetNode-list_access"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetNode-list_access}{}}}
 \subsection{Method \code{list_access()}}{
 list access methods
 \subsection{Usage}{
@@ -124,8 +124,8 @@ named list of character vectors or NULL
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-DatasetNode-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetNode-print}{}}}
 \subsection{Method \code{print()}}{
 print method
 \subsection{Usage}{
@@ -143,8 +143,8 @@ print method
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DatasetNode-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetNode-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

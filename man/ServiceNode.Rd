@@ -26,23 +26,23 @@ For examples see \link{CatalogNode}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ServiceNode$new()}}
-\item \href{#method-print}{\code{ServiceNode$print()}}
-\item \href{#method-clone}{\code{ServiceNode$clone()}}
+\item \href{#method-ServiceNode-new}{\code{ServiceNode$new()}}
+\item \href{#method-ServiceNode-print}{\code{ServiceNode$print()}}
+\item \href{#method-ServiceNode-clone}{\code{ServiceNode$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="browse">}\href{../../thredds/html/ThreddsNode.html#method-browse}{\code{thredds::ThreddsNode$browse()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="children_names">}\href{../../thredds/html/ThreddsNode.html#method-children_names}{\code{thredds::ThreddsNode$children_names()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="GET">}\href{../../thredds/html/ThreddsNode.html#method-GET}{\code{thredds::ThreddsNode$GET()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="GET"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-GET'><code>thredds::ThreddsNode$GET()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="browse"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-browse'><code>thredds::ThreddsNode$browse()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="thredds" data-topic="ThreddsNode" data-id="children_names"><a href='../../thredds/html/ThreddsNode.html#method-ThreddsNode-children_names'><code>thredds::ThreddsNode$children_names()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ServiceNode-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ServiceNode-new}{}}}
 \subsection{Method \code{new()}}{
 initialize an instance of ServiceNode
 \subsection{Usage}{
@@ -60,8 +60,8 @@ initialize an instance of ServiceNode
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-ServiceNode-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ServiceNode-print}{}}}
 \subsection{Method \code{print()}}{
 print method
 \subsection{Usage}{
@@ -79,8 +79,8 @@ print method
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ServiceNode-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ServiceNode-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
