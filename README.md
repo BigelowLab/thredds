@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/BigelowLab/thredds/actions/workflows/r-cmd-check.yml/badge.svg?branch=master)](https://github.com/BigelowLab/thredds/actions/workflows/r-cmd-check.yml)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/thredds)](https://cran.r-project.org/package=thredds)
 [![cran checks](https://cranchecks.info/badges/worst/thredds)](https://cran.r-project.org/web/checks/check_results_thredds.html)
-[![Github_Status_Badge](https://img.shields.io/badge/Github-0.1--2-blue.svg)](https://github.com/BigelowLab/thredds)
+[![Github_Status_Badge](https://img.shields.io/badge/Github-0.1--3-blue.svg)](https://github.com/BigelowLab/thredds)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6027224.svg)](https://doi.org/10.5281/zenodo.6027224)
 
 [THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html) catalogs
@@ -56,9 +56,9 @@ Top
 # CatalogNode (R6): 
 #   verbose: FALSE    tries: 3    namespace prefix: thredds
 #   url: https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml
-#   services [3]: OPeNDAP HTTPServer WMS
-#   catalogRefs [10]: CZCS MODISA MODIST Merged_ATV OCTS SE1 SeaWiFS VIIRS VIIRSJ1 mig-tmp
-#   datasets [0]: none
+#   services [3]: OPeNDAP HTTPServer WCS
+#   catalogRefs [14]: CZCS MERIS MODISA ... SeaWiFS VIIRS VIIRSJ1
+#   datasets [1]: /
 
 Top$browse()
 ```
@@ -75,9 +75,9 @@ L3
 # CatalogNode (R6): 
 #   verbose: FALSE    tries: 3    namespace prefix: thredds
 #   url: https://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/L3SMI/catalog.xml
-#   services [3]: OPeNDAP HTTPServer WMS
-#   catalogRefs [19]: 2002 2003 2004 ... 2018 2019 2020
-#   datasets [0]: none
+#   services [3]: OPeNDAP HTTPServer WCS
+#   catalogRefs [22]: 2002 2003 2004 ... 2021 2022 2023
+#   datasets [1]: /MODISA/L3SMI
 L3[[1]]$browse()
 ```
 
@@ -89,44 +89,43 @@ catalog2009 <- L3[[1]]$get_catalogs("2009")
 # CatalogNode (R6): 
 #   verbose: FALSE    tries: 3    namespace prefix: thredds
 #   url: https://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/L3SMI/2009/catalog.xml
-#   services [3]: OPeNDAP HTTPServer WMS
-#   catalogRefs [730]: 001 002 003 ... 363 364 365
-#   datasets [0]: none
+#   services [3]: OPeNDAP HTTPServer WCS
+#   catalogRefs [365]: 0101 0102 0103 ... 1229 1230 1231
+#   datasets [1]: /MODISA/L3SMI/2009
 ```
 
 Hmmm. We have to conver '2009-01-20' to a three digit day of year (or 4 digit mmdd if looking for SST).
 
 ```
-doy <- format(as.Date("2009-01-20"), "%j")
+doy <- format(as.Date("2009-01-20"), "%m%d")
 doy
-# "020"
+# "0120"
 ```
 
 Ehem, I suppose I could have thought of that without help.  
 
 ```
-catalog20 <- catalog2009[['2009']]$get_catalogs("020")
-$`020`
-CatalogNode (R6): 
-  verbose: FALSE    tries: 3    namespace prefix: thredds
-  url: https://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/L3SMI/2009/020/catalog.xml
-  services [3]: OPeNDAP HTTPServer WMS
-  catalogRefs [0]: none
-  datasets [113]: A2009020.L3m_DAY_CHL_chl_ocx_4km.nc A2009020.L3m_DAY_CHL_chl_ocx_9km.nc ... A2009020.L3m_DAY_ZLEE_Zeu_lee_4km.nc A2009020.L3m_DAY_ZLEE_Zeu_lee_9km.nc
+catalog20 <- catalog2009[['2009']]$get_catalogs(doy)
+# $`0120`
+# CatalogNode (R6): 
+#   verbose: FALSE    tries: 3    namespace prefix: thredds
+#   url: https://oceandata.sci.gsfc.nasa.gov/opendap/MODISA/L3SMI/2009/0120/catalog.xml
+#   services [3]: OPeNDAP HTTPServer WCS
+#   catalogRefs [0]: none
+#   datasets [100]: AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.9km.nc ... AQUA_MODIS.20090120.L3m.DAY.SST4.sst4.4km.nc AQUA_MODIS.20090120.L3m.DAY.SST4.sst4.9km.nc
 ```
 
 Let's did out just the 9km chlor_a data for that day.
 
 ```
-chl <- catalog20[['020']]$get_datasets("A2009020.L3m_DAY_CHL_chlor_a_9km.nc")
-# $A2009020.L3m_DAY_CHL_chlor_a_9km.nc
+chl <- catalog20[[doy]]$get_datasets("AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc")
+# $AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc
 # DatasetNode (R6): 
 #   verbose: FALSE    tries: 3    namespace prefix: thredds
-#   url: /MODISA/L3SMI/2009/020/A2009020.L3m_DAY_CHL_chlor_a_9km.nc
-#   children: dataSize date access
-#   name: A2009020.L3m_DAY_CHL_chlor_a_9km.nc
-#   dataSize: 3742166
-#   date: 2017-12-30T22:43:20
+#   url: /MODISA/L3SMI/2009/0120/AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc
+#   name: AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc
+#   dataSize: 14194791
+#   date: 2022-07-25T16:41:08Z
 ```
 
 Now we need only retrieve the relative URL, and add it to the base URL for the service.
@@ -135,7 +134,7 @@ use straight up `paste0` to append to the base_uri.
 
 ```
 base_uri <- "https://oceandata.sci.gsfc.nasa.gov:443/opendap"
-uri <- paste0(base_uri, chl[["A2009020.L3m_DAY_CHL_chlor_a_9km.nc"]]$url)
+uri <- paste0(base_uri, chl[["AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc"]]$url)
 NC <- ncdf4::nc_open(uri)
 ```
 
