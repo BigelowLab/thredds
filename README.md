@@ -6,7 +6,7 @@
 [![Github_Status_Badge](https://img.shields.io/badge/Github-0.1--3-blue.svg)](https://github.com/BigelowLab/thredds)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6027224.svg)](https://doi.org/10.5281/zenodo.6027224)
 
-[THREDDS](https://www.unidata.ucar.edu/software/thredds/current/tds/TDS.html) catalogs
+[THREDDS](https://www.unidata.ucar.edu/software/tds/) catalogs
 are well described.  This package provides only client-side functionality where the user provides
 prior knowledge about how the catalog is organized, as on the server side the provider has some 
 latitude in how to design the catalog system.
