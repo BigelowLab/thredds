@@ -12,7 +12,7 @@ A limited crawler for programmatically navigating THREDDS catalogs.
 Useful links:
 \itemize{
   \item \url{https://github.com/BigelowLab/thredds}
-  \item \url{https://www.unidata.ucar.edu/software/tds/}
+  \item \url{https://www.unidata.ucar.edu/software/tds}
 }
 
 }
