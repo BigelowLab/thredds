@@ -8,3 +8,25 @@
 \description{
 A limited crawler for programmatically navigating THREDDS catalogs.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/BigelowLab/thredds}
+  \item \url{https://www.unidata.ucar.edu/software/tds/}
+}
+
+}
+\author{
+\strong{Maintainer}: Emmanuel Blondel \email{emmanuel.blondel1@gmail.com} (\href{https://orcid.org/0000-0002-5870-5762}{ORCID})
+
+Authors:
+\itemize{
+  \item Ben Tupper \email{btupper@bigelow.org}
+}
+
+Other contributors:
+\itemize{
+  \item Bigelow Laboratory for Ocean Sciences \email{info@bigelow.org} [copyright holder]
+}
+
+}

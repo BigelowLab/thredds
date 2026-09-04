@@ -1,7 +1,6 @@
 #' @name thredds
 #' @aliases thredds-package
 #' @aliases thredds
-#' @docType package
 #' 
 #' @title thredds: Crawler for Navigating THREDDS Catalogs
 #'
@@ -11,4 +10,4 @@
 #' @import rlang
 #' @import httr
 #' @importFrom magrittr %>%
-NULL
+"_PACKAGE"

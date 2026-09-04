@@ -9,31 +9,29 @@ A catalog representation that sublcasses from ThreddsNode
 \examples{
  \donttest{
   library(thredds)
-  top_uri <- 'https://oceandata.sci.gsfc.nasa.gov/opendap/catalog.xml'
+  top_uri <- 'https://psl.noaa.gov/thredds/catalog/Datasets/godas/catalog.xml'
   Top <- thredds::CatalogNode$new(top_uri)
   
   #to browse catalogue
   #Top$browse()
   
-  #go down in 'MODISA' catalog
-  L3 <- Top$get_catalogs("MODISA")[["MODISA"]]$get_catalogs()[[1]]
-  
-  #see what's available for 2009
-  catalog2009 <- L3$get_catalogs("2009")[[1]]
-  
-  #get catalog for 2009-01-20 
-  doy <- format(as.Date("2009-01-20"), "\%m\%d")
-  catalog20 <- catalog2009$get_catalogs(doy)[[doy]]
+  #go down in 'Derived' catalog
+  cat_name = "Derived"
+  subcat <- Top$get_catalogs(cat_name)[[cat_name]]
   
   #get dataset node
-  chl <- catalog20$get_datasets("AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc")[[1]]
+  ds_name = "salt.mon.ltm.1991-2020.nc"
+  ds <- subcat$get_datasets(ds_name)[[1]]
   
   #retrieve the relative URL, and add it to the base URL for the service.
   #Somewhat awkwardly, the relative URL comes prepended with a path separator, so we 
   #use straight up `paste0` to append to the base_uri.
   #if(require("ncdf4")){
-  #  base_uri <- "https://oceandata.sci.gsfc.nasa.gov:443/opendap"
-  #  uri <- paste0(base_uri, chl[["AQUA_MODIS.20090120.L3m.DAY.CHL.chlor_a.4km.nc"]]$url)
+  #  base_uri = paste0(
+  #   "https://", gsub("^(https?://)?([^/]+).*", "\\\2", subcat$url), 
+  #   subcat$list_services()$odap[["base"]]
+  #  )
+  #  uri <- paste0(base_uri, ds$url)
   #  NC <- ncdf4::nc_open(uri)
   #}
  }
